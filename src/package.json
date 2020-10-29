@@ -2,7 +2,10 @@
   "name": "pkiop.github.io",
   "version": "0.0.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "dev": "npx webpack --watch --config=./Backend/webpack.config.js --mode=development",
+    "start": "nodemon ./Backend/dist/app.js"
+  },
   "dependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
