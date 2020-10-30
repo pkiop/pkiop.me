@@ -13,6 +13,8 @@ module.exports = {
       extensions: ['.js', '.jsx','.ts','.tsx','.json'],
       alias: {
         '@Components': path.resolve(__dirname, frontendPath, 'Components'),
+        '@Images': path.resolve(__dirname, frontendPath, 'public/Images'),
+        '@Styles': path.resolve(__dirname, frontendPath, 'styles'),
       }
     },
     entry:  [
@@ -21,10 +23,16 @@ module.exports = {
       path.resolve(__dirname, frontendPath, 'client.tsx'),
     ], 
     module: {
-      rules: [{
+      rules: [
+      {
         test: /\.tsx?$/,
         loader: 'ts-loader',
       }, 
+      {
+        test: /\.(png|jpg|svg)$/,
+        loader: 'file-loader'
+        
+      }
     ]
     },
     plugins: [
