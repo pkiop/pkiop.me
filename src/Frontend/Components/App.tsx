@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { ThemeProvider } from 'styled-components';
 
 import HeaderBar from '@Components/HeaderBar';
 import Portfolio from '@Components/Portfolio';
@@ -13,9 +14,14 @@ import TIL from '@Components/TIL';
 import LM from '@Components/LM';
 import { FC } from 'react';
 
+import { theme } from '@Styles/theme';
+import { GlobalStyle } from '@Styles/global-styles';
+
 const App: FC = () => {
     return (
       <BrowserRouter>        
+        <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <HeaderBar />
         <Switch>
           <Route exact path="/">
@@ -34,6 +40,8 @@ const App: FC = () => {
             <LM />
           </Route>
         </Switch>
+        </ThemeProvider>
+
       </BrowserRouter>
     )
 };
