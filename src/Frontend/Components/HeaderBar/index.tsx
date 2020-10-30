@@ -10,16 +10,22 @@ const Logo = styled.img`
   border: 1px solid black;
 `
 
+const Main = styled.div`
+  display:flex;
+  justify-content: space-between;
+  background-color:${(props) => props.theme.mainColor}
+`
+
 const App: FC = () => {
     return (
-      <div>
+      <Main>
         <Logo src={logo}/>
-        <MenuLinkBtn title="home" link="/"/>
-        <MenuLinkBtn title="portfolio" link="portfolio" />
-        <MenuLinkBtn title="post" link="post"/>
+        <MenuLinkBtn title="Home" link="/"/>
+        <MenuLinkBtn title="Portfolio" link="portfolio" />
+        <MenuLinkBtn title="Post" link="post"/>
         <MenuLinkBtn title="TIL" link="til"/>
         <MenuLinkBtn title="LM" link="lm"/>
-      </div>
+      </Main>
     )
 };
 
