@@ -1,12 +1,17 @@
 import React from 'react';
-import { Fragment, FC, useState, useEffect } from 'react';
+import { FC } from 'react';
 import styled from "styled-components";
 import {
   Link
 } from 'react-router-dom';
 
 const LinkBtn = styled.div`
-  margin: 20px;
+  margin: 20px 50px;
+  color: white;
+
+  :hover {
+    color: red;
+  }
 `
 
 interface Props {
@@ -14,14 +19,13 @@ interface Props {
   link: string;
 }
 
-const App: FC<Props> = ({ title, link}) => {
+const App: FC<Props> = ({ title, link }) => {
 
   return (
     <>
       <LinkBtn>
         <Link to={link}>{title}</Link>
       </LinkBtn>
-
     </>
   )
 };
