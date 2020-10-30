@@ -2,7 +2,10 @@
   "name": "pkiop.github.io",
   "version": "0.0.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "dev": "npx webpack --watch --config=./Backend/webpack.config.js --mode=development",
+    "start": "nodemon ./Backend/dist/app.js"
+  },
   "dependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
@@ -13,6 +16,7 @@
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.6",
     "@types/redux": "^3.6.0",
+    "@types/styled-components": "^5.1.4",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "cookie-parser": "~1.4.4",
@@ -20,6 +24,7 @@
     "dotenv": "^8.2.0",
     "ejs": "~2.6.1",
     "express": "^4.16.4",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
     "http-errors": "~1.6.3",
     "immer": "^7.0.14",
@@ -34,6 +39,8 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
+    "styled-components": "^5.2.0",
+    "styled-reset": "^4.3.0",
     "ts-loader": "^8.0.7",
     "webpack": "^5.3.0",
     "webpack-hot-middleware": "^2.25.0",

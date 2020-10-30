@@ -10,6 +10,8 @@ const {
 useDevServer(app);
 app.get('/', (req, res) => res.redirect('/'));
 
+app.use('/', (req, res) => res.send('404 error'));
+
 app.listen(PORT, () => {
   console.log('server started at http://localhost:'+PORT);
 });
