@@ -10,6 +10,7 @@ const App: FC = () => {
   return (
     <>
       <h1>About</h1> 
+      <h1>자동으로 배포된 버전</h1> 
     </>
   )
 };
