@@ -6,6 +6,7 @@
     "dev": "npx webpack --watch --config=./Backend/webpack.config.js --mode=development",
     "BackBundling": "npx webpack --config=./Backend/webpack.config.js",
     "FrontBundling": "npx webpack --config=./Frontend/webpack.config.js",
+    "productTest": "npm run BackBundling && npm run FrontBundling && npm run start",
     "start": "cd Backend && nodemon ./dist/app.js"
   },
   "dependencies": {
