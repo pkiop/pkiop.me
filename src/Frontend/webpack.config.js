@@ -4,11 +4,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 require('dotenv').config();
 
-const frontendPath = '../../Frontend';
+let frontendPath;
+const ENV = process.env.NODE_ENV;
+if(process.env.NODE_ENV === 'development') {
+  frontendPath = '../../Frontend';
+} else {
+  frontendPath = '../Frontend';
+}
+
 
 module.exports = {
-    mode: 'development', // production
-    devtool: 'eval',     // hidden-source-map => 그냥 source-map하면 개발자 도구에 코드 다 노출됨
+    mode: process.env.NODE_ENV, // production
+    devtool: ENV === 'development' ? 'eval' : 'hidden-source-map',     // hidden-source-map => 그냥 source-map하면 개발자 도구에 코드 다 노출됨
     resolve: {
       extensions: ['.js', '.jsx','.ts','.tsx','.json'],
       alias: {
@@ -46,7 +53,7 @@ module.exports = {
 
     output: {
       publicPath: '/',
-      path: path.resolve(__dirname, './dist/public'),
+      path: path.resolve(__dirname, '../Backend/public'),
       filename: '[name].bundle.js',
     }
   }

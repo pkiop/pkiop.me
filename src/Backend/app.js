@@ -1,16 +1,25 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import useDevServer from './devServer';
+import path from 'path';
 dotenv.config();
 const app = express();
 const {
   PORT = 3000,
 } = process.env;
 
-useDevServer(app);
-app.get('/', (req, res) => res.redirect('/'));
+app.set('view engine', 'ejs');
+app.set('views', path.resolve(__dirname ,'../public'));
+app.engine('html', require('ejs').renderFile);
 
-app.use('/', (req, res) => res.send('404 error'));
+if(process.env.NODE_ENV === 'development') {
+  useDevServer(app);
+} else {
+  app.use(express.static('public'));
+}
+
+app.get('/', (req, res) => res.render(path.resolve(__dirname, '../public/index.html')));
+app.use('/', (req, res) => res.send('now, 404 error'));
 
 app.listen(PORT, () => {
   console.log('server started at http://localhost:'+PORT);
