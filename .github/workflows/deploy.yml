@@ -15,13 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: ssh deploy
-        uses: easingthemes/ssh-deploy@v2.1.5
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-rltgoDzvO"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-     
+      - name: executing remote ssh commands using private key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          port: ${{ secrets.REMOTE_PORT }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd pkiop.github.io
+            ./deploy.sh
      
