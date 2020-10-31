@@ -5,11 +5,12 @@ const babelConfig = require('./babel.config.js');
 
 module.exports = {
   target: 'node',
+
   entry: [
     path.resolve(__dirname, 'app.js'),
   ],
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'app.js',
   },
   externals: [
