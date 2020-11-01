@@ -10,6 +10,13 @@ const Logo = styled.img`
   border: 1px solid black;
 `
 
+const MenuButtons = styled.div`
+  border: 1px solid black;
+  @media only screen and (min-width: 1000px) {
+    display: flex;
+  }
+`
+
 const Main = styled.div`
   display:flex;
   justify-content: space-between;
@@ -20,11 +27,13 @@ const App: FC = () => {
     return (
       <Main>
         <Logo src={logo}/>
-        <MenuLinkBtn title="Home" link="/"/>
-        <MenuLinkBtn title="Portfolio" link="portfolio" />
-        <MenuLinkBtn title="Post" link="post"/>
-        <MenuLinkBtn title="TIL" link="til"/>
-        <MenuLinkBtn title="LM" link="lm"/>
+        <MenuButtons>
+          <MenuLinkBtn title="Home" link="/"/>
+          <MenuLinkBtn title="Portfolio" link="portfolio" />
+          <MenuLinkBtn title="Post" link="post"/>
+          <MenuLinkBtn title="TIL" link="til"/>
+          <MenuLinkBtn title="LM" link="lm"/>
+        </MenuButtons>
       </Main>
     )
 };
