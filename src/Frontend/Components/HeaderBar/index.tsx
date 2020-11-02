@@ -1,9 +1,11 @@
 import React from 'react';
 import logo from '@Images/logo.png';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styled from "styled-components";
 import MenuLinkBtn from '@Components/MenuLinkBtn';
+import HeaderBarMenuDropdown from '@Components/HeaderBar-MenuDropdown';
 import hambugBtn from '@Images/hamburg.svg';
+
 
 const Logo = styled.img`
   width: 60px;
@@ -22,6 +24,7 @@ const MenuButtons = styled.div`
 `
 
 const Main = styled.div`
+  position: relative;
   display:flex;
   justify-content: space-between;
   background-color:${(props) => props.theme.mainColor};
@@ -38,12 +41,13 @@ const BurgerBtn = styled.img`
   }
 `
 
-const burgerOnClick = () => {
-  console.log("burger btn click");
+const burgerOnClick = (clicked: boolean, setClicked:React.Dispatch<React.SetStateAction<boolean>>) => () => {
+  setClicked(clicked ? false : true);
 }
 
-const App: FC = () => {
 
+const App: FC = () => {
+  const [clicked, setClicked] = useState<boolean>(false);
   return (
     <Main>
       <Logo src={logo}/>
@@ -54,7 +58,9 @@ const App: FC = () => {
         <MenuLinkBtn title="TIL" link="til"/>
         <MenuLinkBtn title="LM" link="lm"/>
       </MenuButtons>
-      <BurgerBtn onClick={burgerOnClick} src={hambugBtn}/>
+      <BurgerBtn onClick={burgerOnClick(clicked, setClicked)} src={hambugBtn}/>
+      <HeaderBarMenuDropdown clicked={clicked}></HeaderBarMenuDropdown>
+      
     </Main>
   )
 };
