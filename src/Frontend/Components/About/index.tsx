@@ -4,14 +4,19 @@ import styled from "styled-components";
 import {
   Link
 } from 'react-router-dom';
+import AboutMe from '@Components/AboutMe';
+import Skills from '@Components/Skills';
+
+const Main = styled.div`
+`
 
 const App: FC = () => {
 
   return (
-    <>
-      <h1>About</h1> 
-      <h1>자동으로 배포된 버전</h1> 
-    </>
+    <Main>
+      <AboutMe />
+      <Skills />
+    </Main>
   )
 };
 
