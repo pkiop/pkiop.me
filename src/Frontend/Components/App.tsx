@@ -22,30 +22,29 @@ const App: FC = () => {
     return (
       <BrowserRouter>        
         <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-            <HeaderBar />
-            <About />
-          </Route>
-          <Route path="/portfolio">
-            <HeaderBar />
-            <Portfolio />
-          </Route>
-          <Route path="/post">
-            <HeaderBar />
-            <Post />
-          </Route>
-          <Route path="/TIL">
-            <HeaderBar />
-            <TIL />
-          </Route>
-          <Route path="/LM">
-            <HeaderBar />
-            <LM />
-          </Route>
-        </Switch>
+          <GlobalStyle />
+          <Switch>
+            <Route exact path="/">
+              <HeaderBar />
+              <About />
+            </Route>
+            <Route path="/portfolio">
+              <HeaderBar />
+              <Portfolio />
+            </Route>
+            <Route path="/post">
+              <HeaderBar />
+              <Post />
+            </Route>
+            <Route path="/TIL">
+              <HeaderBar />
+              <TIL />
+            </Route>
+            <Route path="/LM">
+              <HeaderBar />
+              <LM />
+            </Route>
+          </Switch>
         </ThemeProvider>
 
       </BrowserRouter>
