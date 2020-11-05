@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import logo from '@Images/logo.png';
 import { FC, useState } from 'react';
 import styled from "styled-components";
 import MenuLinkBtn from '@Components/MenuLinkBtn';
 import HeaderBarMenuDropdown from '@Components/HeaderBar-MenuDropdown';
 import hambugBtn from '@Images/hamburg.svg';
+import { theme } from '@Styles/theme';
+import remToPixel from '@Utils/remToPixel';
 
 
 const Logo = styled.img`
-  width: 60px;
-  height: 60px;
+  width: ${props => props.theme.headerbarContentHeight};
+  height: ${props => props.theme.headerbarContentHeight};
   border: 1px solid black;
 `
 
@@ -28,11 +30,12 @@ const Main = styled.div`
   display:flex;
   justify-content: space-between;
   background-color:${(props) => props.theme.mainColor};
+  height:${props => props.theme.headerbarHeight};
 `
 
 const BurgerBtn = styled.img`
-  width: 60px;
-  height: 60px;
+  width: ${props => props.theme.headerbarContentHeight};
+  height: ${props => props.theme.headerbarContentHeight};
   @media only screen and (min-width: ${(props) => props.theme.smallWidth}) {
     display: none;
   }
@@ -42,12 +45,36 @@ const BurgerBtn = styled.img`
 `
 
 const burgerOnClick = (clicked: boolean, setClicked:React.Dispatch<React.SetStateAction<boolean>>) => () => {
+  console.log(window.innerWidth);
   setClicked(clicked ? false : true);
 }
 
+const useWindowSize = () => {
+  const [size, setSize] = useState([0, 0]);
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight]);
+      console.log(size);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+  return size;
+}
 
-const App: FC = () => {
+const App: FC = (props: any) => {
   const [clicked, setClicked] = useState<boolean>(false);
+  const [width, height] = useWindowSize();
+
+  useEffect(() => {
+    console.log("theme : " ,props);
+    console.log(width, remToPixel(theme.smallWidth));
+    if(width > remToPixel(theme.smallWidth)) {
+      console.log(clicked);
+      setClicked(false);
+    }
+  }, [width])
   return (
     <Main>
       <Logo src={logo}/>
