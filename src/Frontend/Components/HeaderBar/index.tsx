@@ -7,6 +7,7 @@ import HeaderBarMenuDropdown from '@Components/HeaderBar-MenuDropdown';
 import hambugBtn from '@Images/hamburg.svg';
 import { theme } from '@Styles/theme';
 import remToPixel from '@Utils/remToPixel';
+import { useWindowSize } from '@Hooks/ElementSize';
 
 
 const Logo = styled.img`
@@ -45,22 +46,7 @@ const BurgerBtn = styled.img`
 `
 
 const burgerOnClick = (clicked: boolean, setClicked:React.Dispatch<React.SetStateAction<boolean>>) => () => {
-  console.log(window.innerWidth);
   setClicked(clicked ? false : true);
-}
-
-const useWindowSize = () => {
-  const [size, setSize] = useState([0, 0]);
-  useLayoutEffect(() => {
-    function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
-      console.log(size);
-    }
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-  return size;
 }
 
 const App: FC = (props: any) => {
@@ -68,10 +54,7 @@ const App: FC = (props: any) => {
   const [width, height] = useWindowSize();
 
   useEffect(() => {
-    console.log("theme : " ,props);
-    console.log(width, remToPixel(theme.smallWidth));
     if(width > remToPixel(theme.smallWidth)) {
-      console.log(clicked);
       setClicked(false);
     }
   }, [width])
