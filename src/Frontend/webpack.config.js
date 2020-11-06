@@ -23,6 +23,7 @@ module.exports = {
         '@Images': path.resolve(__dirname, frontendPath, 'public/Images'),
         '@Styles': path.resolve(__dirname, frontendPath, 'styles'),
         '@Utils': path.resolve(__dirname, frontendPath, 'utils'),
+        '@Hooks': path.resolve(__dirname, frontendPath, 'Hooks'),
       }
     },
     entry:  [

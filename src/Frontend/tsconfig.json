@@ -49,6 +49,7 @@
       "@Images/*": ["public/Images/*"],
       "@Styles/*": ["styles/*"],
       "@Utils/*": ["utils/*"],
+      "@Hooks/*": ["Hooks/*"],
       // "Root/*": ["src/*"],
       // "Site/*": ["src/site/*"],
       // "Admin/*": ["src/admin/*"],
