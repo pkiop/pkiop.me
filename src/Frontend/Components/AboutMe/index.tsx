@@ -1,7 +1,8 @@
-import React from 'react';
-import { Fragment, FC, useState, useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
+import { Fragment, FC, useState, useEffect, useRef } from 'react';
 import styled from "styled-components";
 import profile from '@Images/profile.png';
+import { useComponentSize } from '@Hooks/ElementSize';
 import {
   Link
 } from 'react-router-dom';
@@ -46,15 +47,21 @@ const getText = async () => {
   return await result.json();
 }
 
-const App: FC = () => {
+interface Props {
+  setSize: React.Dispatch<React.SetStateAction<number[]>>
+}
+const App: FC<Props> = (props) => {
   const [mt, setMt] = useState("");
+  const mainComponent = useRef<HTMLDivElement>(null);
+  const mainComponentSize = useComponentSize(mainComponent);
 
   useEffect(() => {
+    props.setSize(mainComponentSize);
     getText().then(res => setMt(res.mainText));
-  })
+  }, [mainComponentSize]);
 
   return (
-      <Main>
+      <Main ref={mainComponent}>
         <Title>About Me</Title>
         <Line />
         <Picture src={profile}/>
