@@ -1,7 +1,7 @@
 import React from 'react';
 import { Fragment, FC, useState, useEffect, useRef } from 'react';
 import styled from "styled-components";
-import coverImg from '@Images/Cover.jpg';
+import coverImg from '@Images/cover.jpg';
 import { useComponentSize } from '@Hooks/ElementSize';
 import {
   Link
