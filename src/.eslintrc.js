@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
     "env": {
         "browser": true,
@@ -13,6 +11,5 @@ module.exports = {
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "rules": {
-    },
+
 };

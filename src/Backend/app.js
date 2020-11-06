@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import useDevServer from './devServer';
 import path from 'path';
+import api from './router/api';
 dotenv.config();
 const app = express();
 const {
@@ -11,6 +12,7 @@ const {
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname ,'../public'));
 app.engine('html', require('ejs').renderFile);
+app.use('/api', api);
 
 if(process.env.NODE_ENV === 'development') {
   useDevServer(app);

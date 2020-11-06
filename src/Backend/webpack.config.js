@@ -5,7 +5,13 @@ const babelConfig = require('./babel.config.js');
 
 module.exports = {
   target: 'node',
-
+  resolve: {
+    extensions: ['.js', '.jsx','.ts','.tsx','.json'],
+    alias: {
+      '@Controller': path.resolve(__dirname, 'controller'),
+      '@Router': path.resolve(__dirname, 'router')
+    }
+  },
   entry: [
     path.resolve(__dirname, 'app.js'),
   ],
