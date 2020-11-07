@@ -4,7 +4,6 @@ export const getScrollTop = () => {
   const [top, setTop] = useState(0);
   useLayoutEffect(() => {
     function updateTop() {
-      console.log("scrollY : ", window.scrollY);
       setTop(window.scrollY);
     }
     window.addEventListener('scroll', updateTop);
