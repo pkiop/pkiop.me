@@ -18,9 +18,7 @@ export const useComponentSize = (component: React.RefObject<HTMLDivElement | HTM
   useLayoutEffect(() => {
     const updateSize = () => setSize([component.current!.offsetWidth, component.current!.offsetHeight]);
     window.addEventListener('resize', updateSize);
-    return () => { 
-      return window.removeEventListener('resize', updateSize)
-    };
+    return () => window.removeEventListener('resize', updateSize);
   }, []);
   return size;
 }

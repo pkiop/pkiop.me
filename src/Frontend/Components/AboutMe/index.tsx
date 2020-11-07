@@ -56,9 +56,15 @@ const App: FC<Props> = (props) => {
   const mainComponentSize = useComponentSize(mainComponent);
 
   useEffect(() => {
-    props.setSize(mainComponentSize);
+    if(mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
+      props.setSize(mainComponentSize);
+    } else {
+      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'));
+      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'));
+      props.setSize([mainComponent.current!.scrollWidth, mainComponent.current!.scrollHeight + marginTop + marginBottom]);
+    }
     getText().then(res => setMt(res.mainText));
-  }, [mainComponentSize]);
+  }, [mainComponentSize, mainComponent.current]);
 
   return (
       <Main ref={mainComponent}>

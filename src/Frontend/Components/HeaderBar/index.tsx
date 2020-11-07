@@ -6,7 +6,7 @@ import MenuLinkBtn from '@Components/MenuLinkBtn';
 import HeaderBarMenuDropdown from '@Components/HeaderBar-MenuDropdown';
 import hambugBtn from '@Images/hamburg.svg';
 import { theme } from '@Styles/theme';
-import remToPixel from '@Utils/remToPixel';
+import { remToPixel } from '@Utils/remToPixel';
 import { useWindowSize } from '@Hooks/ElementSize';
 
 
