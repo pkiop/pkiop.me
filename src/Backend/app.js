@@ -2,6 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import useDevServer from './devServer';
 import path from 'path';
+import cors from 'cors';
+
 import api from './router/api';
 dotenv.config();
 const app = express();
@@ -12,7 +14,7 @@ const {
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname ,'../public'));
 app.engine('html', require('ejs').renderFile);
-app.use('/api', api);
+app.use('/api', cors(), api);
 
 if(process.env.NODE_ENV === 'development') {
   useDevServer(app);
