@@ -23,30 +23,36 @@ const text_mask = keyframes`
 const Main = styled.div`
   position: relative;
   height:${window.innerHeight}px;
-  background-color: green;
+  background-color: black;
 `
 
 const Cover = styled.div`
-  position: absolute;
-  width: 100%;
-  top:20%;
+  position: relative; z-index: 20;
+  top: 20%;
+  left: 5%;
 `
 
 const Block = styled.div`
+  display: flex; 
   position: relative;
-  font-size: 32px;
-  padding: 3% 10%;
-  margin: 10% 0%;
-  background-color: red;
   /* width: 50%; */
+  /* height: 30px;
+  height: 35px; */
 `;
 
+const BlockCover = styled.div`
+  position:relative; display:inline-block; font-size:140px; line-height: 1; color:#fff; transition:transform .5s;
+`
+
 const BlockText = styled.div`
-  position: absolute;
+  /* position: absolute;
+  top: 0px;
+  left: 0px;
   padding: 0% 5%;
   height: 100%;
-  background-color: skyblue;
   z-index: 10;
+  font-size: 72px; */
+  overflow:hidden; position:relative; z-index: 20; display:inline-block; font-size:140px; line-height: 1; color:#fff; transition:transform .5s;
 `;
 
 const BlockMask = styled.div`
@@ -54,46 +60,80 @@ const BlockMask = styled.div`
 `;
 
 const BlockUnderMask = styled.div`
-  position:absolute; left:0; bottom:0; z-index:9; width:0%; height:40%; background: #e9c400; transition:width .5s cubic-bezier(0.24, 0.77, 0.32, 0.95);
+  position:absolute; left:0; bottom:0; z-index:11; width:10%; height:40%; background: #e9c400; transition:width .5s cubic-bezier(0.24, 0.77, 0.32, 0.95);
 `;
 
-const setUnderMaskActive = (ref: React.RefObject<HTMLDivElement>) => () => {
-  ref.current!.style.width = "100%";
+const setUnderMask= (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
+  console.log("undermask ref : ", ref);
+  if(isActive) {
+    ref.current!.style.width = "100%";
+  } else {
+    ref.current!.style.width = "0%";
+  }
 }
 
-const setUnderMaskPassive = (ref: React.RefObject<HTMLDivElement>) => () => {
-  ref.current!.style.width = "0%";
+const setTextMove = (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
+  if(isActive) {
+    ref.current!.style.transform = `translateX(-10px)`;
+  } else {
+    ref.current!.style.transform = `translateX(+10px)`;
+  }
 }
+
+const blockMouseOver = (
+  textRef: React.RefObject<HTMLDivElement>,
+  underLineRef: React.RefObject<HTMLDivElement>,
+  isActive: boolean) => {
+    return () => {
+      setUnderMask(underLineRef, isActive);
+      setTextMove(textRef, isActive);
+    }
+  }
+
+
 
 const App: FC = () => {
+
+  const text1 = useRef<HTMLDivElement>(null);
+  const text2 = useRef<HTMLDivElement>(null);
+  const text3 = useRef<HTMLDivElement>(null);
+
   const bk1 = useRef<HTMLDivElement>(null);
   const bk2 = useRef<HTMLDivElement>(null);
   const bk3 = useRef<HTMLDivElement>(null);
+
   return (
     <Main>
       <Cover>
         <Block 
-        onMouseOver={setUnderMaskActive(bk1)} 
-        onMouseOut={setUnderMaskPassive(bk1)}>
-          <BlockText>Block1</BlockText>
-          <BlockMask />
-          <BlockUnderMask ref={bk1}/>
+        onMouseOver={blockMouseOver(text1, bk1, true)} 
+        onMouseOut={blockMouseOver(text1, bk1, false)}
+        >
+          <BlockCover>
+            <BlockText ref={text1}>Block1</BlockText>
+            <BlockMask />
+            <BlockUnderMask ref={bk1}/>
+          </BlockCover>
         </Block>
         <Block 
-        onMouseOver={setUnderMaskActive(bk2)}
-        onMouseOut={setUnderMaskPassive(bk2)}
+        onMouseOver={blockMouseOver(text2, bk2, true)} 
+        onMouseOut={blockMouseOver(text2, bk2, false)}
         >
-          <BlockText>Block2</BlockText>
-          <BlockMask />
-          <BlockUnderMask ref={bk2}/>
+          <BlockCover>
+            <BlockText ref={text2}>Block2</BlockText>
+            <BlockMask />
+            <BlockUnderMask ref={bk2}/>
+          </BlockCover>
         </Block>
         <Block 
-        onMouseOver={setUnderMaskActive(bk3)}
-        onMouseOut={setUnderMaskPassive(bk3)}
+        onMouseOver={blockMouseOver(text3, bk3, true)} 
+        onMouseOut={blockMouseOver(text3, bk3, false)}
         >
-          <BlockText>Block3</BlockText>
-          <BlockMask />
-          <BlockUnderMask ref={bk3}/>
+          <BlockCover>
+            <BlockText ref={text3}>Block3123123123</BlockText>
+            <BlockMask />
+            <BlockUnderMask ref={bk3}/>
+          </BlockCover>
         </Block>
       </Cover>
       
