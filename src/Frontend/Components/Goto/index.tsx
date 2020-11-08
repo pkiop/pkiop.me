@@ -1,6 +1,7 @@
 import React from 'react';
 import { Fragment, FC, useState, useEffect, useRef } from 'react';
 import styled, { keyframes }from "styled-components";
+import { useComponentSize } from '@Hooks/ElementSize';
 import {
   Link
 } from 'react-router-dom';
@@ -18,6 +19,19 @@ const text_mask = keyframes`
         width: 100%;
         transform:translateX(101%);
     }
+`;
+
+const text_opacity = keyframes`
+  0%{
+      opacity: 0;
+      color:#3535ff;
+      transform:translateX(-50%);
+  }
+  100%{
+      opacity: 1;
+      color:#fff;
+      transform:translateX(0%);
+  }
 `;
 
 const Main = styled.div`
@@ -41,26 +55,35 @@ const Block = styled.div`
 `;
 
 const BlockCover = styled.div`
+overflow: hidden;
+  font-weight: 600;
   position:relative; display:inline-block; font-size:140px; line-height: 1; color:#fff; transition:transform .5s;
 `
 
 const BlockText = styled.div`
-  /* position: absolute;
-  top: 0px;
-  left: 0px;
-  padding: 0% 5%;
-  height: 100%;
-  z-index: 10;
-  font-size: 72px; */
-  overflow:hidden; position:relative; z-index: 20; display:inline-block; font-size:140px; line-height: 1; color:#fff; transition:transform .5s;
+  position:relative;
+  z-index: 20;
+  display:inline-block;
+  font-size:140px;
+  line-height: 1;
+  color:#fff;
+  transition:transform .5s;
+  animation:${text_opacity} 2s 1s 1 cubic-bezier(0.24, 0.77, 0.32, 0.95) both paused;
 `;
 
 const BlockMask = styled.div`
-  position:absolute; left:0; top:0; z-index:10; height:100%; background: #fff; animation:${text_mask} 2s 1 cubic-bezier(0.24, 0.77, 0.32, 0.95) both paused;
+  overflow:hidden; 
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:10;
+  height:100%;
+  background: #fff;
+  animation:${text_mask} 2s 1 cubic-bezier(0.24, 0.77, 0.32, 0.95) both paused;
 `;
 
 const BlockUnderMask = styled.div`
-  position:absolute; left:0; bottom:0; z-index:11; width:10%; height:40%; background: #e9c400; transition:width .5s cubic-bezier(0.24, 0.77, 0.32, 0.95);
+  position:absolute; left:0; bottom:0; z-index:11; width:0%; height:40%; background: #e9c400; transition:width .5s cubic-bezier(0.24, 0.77, 0.32, 0.95);
 `;
 
 const setUnderMask= (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
@@ -85,54 +108,97 @@ const blockMouseOver = (
   underLineRef: React.RefObject<HTMLDivElement>,
   isActive: boolean) => {
     return () => {
-      setUnderMask(underLineRef, isActive);
       setTextMove(textRef, isActive);
+      setUnderMask(underLineRef, isActive);
     }
   }
 
+const runningAnimation = (elements: Array<React.RefObject<HTMLDivElement>>) => {
+  elements.forEach((el) => {
+    el.current!.style.animationPlayState = "running";
+  })
+}
 
+interface Props {
+  isAnimated: boolean;
+  setSize: React.Dispatch<React.SetStateAction<number[]>>
+};
 
-const App: FC = () => {
+const App: FC<Props> = (props) => {
 
   const text1 = useRef<HTMLDivElement>(null);
   const text2 = useRef<HTMLDivElement>(null);
   const text3 = useRef<HTMLDivElement>(null);
+  const text4 = useRef<HTMLDivElement>(null);
 
   const bk1 = useRef<HTMLDivElement>(null);
   const bk2 = useRef<HTMLDivElement>(null);
   const bk3 = useRef<HTMLDivElement>(null);
+  const bk4 = useRef<HTMLDivElement>(null);
+
+  const mask1 = useRef<HTMLDivElement>(null);
+  const mask2 = useRef<HTMLDivElement>(null);
+  const mask3 = useRef<HTMLDivElement>(null);
+  const mask4 = useRef<HTMLDivElement>(null);
+
+  const mainComponent = useRef<HTMLDivElement>(null);
+  const mainComponentSize = useComponentSize(mainComponent);
+
+  useEffect(() => {
+    if(mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
+      props.setSize(mainComponentSize);
+    } else {
+      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'));
+      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'));
+      props.setSize([mainComponent.current!.scrollWidth, mainComponent.current!.scrollHeight + marginTop + marginBottom]);
+    }
+    if(props.isAnimated === true) {
+      runningAnimation([text1, text2, text3, text4, mask1, mask2, mask3, mask4]);
+    }
+  }, [props.isAnimated, mainComponentSize, mainComponent.current]);
+
 
   return (
-    <Main>
+    <Main ref={mainComponent}>
       <Cover>
-        <Block 
-        onMouseOver={blockMouseOver(text1, bk1, true)} 
-        onMouseOut={blockMouseOver(text1, bk1, false)}
-        >
-          <BlockCover>
+        <Block>
+          <BlockCover
+          onMouseOver={blockMouseOver(text1, bk1, true)} 
+          onMouseOut={blockMouseOver(text1, bk1, false)}
+          >
             <BlockText ref={text1}>Block1</BlockText>
-            <BlockMask />
+            <BlockMask ref={mask1}/>
             <BlockUnderMask ref={bk1}/>
           </BlockCover>
         </Block>
-        <Block 
-        onMouseOver={blockMouseOver(text2, bk2, true)} 
-        onMouseOut={blockMouseOver(text2, bk2, false)}
-        >
-          <BlockCover>
+        <Block>
+          <BlockCover
+          onMouseOver={blockMouseOver(text2, bk2, true)} 
+          onMouseOut={blockMouseOver(text2, bk2, false)}
+          >
             <BlockText ref={text2}>Block2</BlockText>
-            <BlockMask />
+            <BlockMask ref={mask2}/>
             <BlockUnderMask ref={bk2}/>
           </BlockCover>
         </Block>
-        <Block 
-        onMouseOver={blockMouseOver(text3, bk3, true)} 
-        onMouseOut={blockMouseOver(text3, bk3, false)}
-        >
-          <BlockCover>
+        <Block>
+          <BlockCover
+          onMouseOver={blockMouseOver(text3, bk3, true)} 
+          onMouseOut={blockMouseOver(text3, bk3, false)}
+          >
             <BlockText ref={text3}>Block3123123123</BlockText>
-            <BlockMask />
+            <BlockMask ref={mask3}/>
             <BlockUnderMask ref={bk3}/>
+          </BlockCover>
+        </Block>
+        <Block>
+          <BlockCover
+          onMouseOver={blockMouseOver(text4, bk4, true)} 
+          onMouseOut={blockMouseOver(text4, bk4, false)}
+          >
+            <BlockText ref={text4}>Block네번째</BlockText>
+            <BlockMask ref={mask4}/>
+            <BlockUnderMask ref={bk4}/>
           </BlockCover>
         </Block>
       </Cover>
