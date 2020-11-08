@@ -49,15 +49,17 @@ const Cover = styled.div`
 const Block = styled.div`
   display: flex; 
   position: relative;
-  /* width: 50%; */
-  /* height: 30px;
-  height: 35px; */
 `;
 
 const BlockCover = styled.div`
-overflow: hidden;
+  overflow: hidden;
   font-weight: 600;
-  position:relative; display:inline-block; font-size:140px; line-height: 1; color:#fff; transition:transform .5s;
+  position:relative; 
+  display:inline-block;
+  font-size:140px;
+  line-height: 1; 
+  color:#fff;
+  transition:transform .5s;
 `
 
 const BlockText = styled.div`
@@ -87,7 +89,6 @@ const BlockUnderMask = styled.div`
 `;
 
 const setUnderMask= (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
-  console.log("undermask ref : ", ref);
   if(isActive) {
     ref.current!.style.width = "100%";
   } else {
@@ -96,10 +97,13 @@ const setUnderMask= (ref: React.RefObject<HTMLDivElement>, isActive: boolean) =>
 }
 
 const setTextMove = (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
+  console.log("ref : ", ref);
   if(isActive) {
+    console.log("active");
     ref.current!.style.transform = `translateX(-10px)`;
+    ref.current!.style.webkitTransform = `translateX(-10px)`; 
   } else {
-    ref.current!.style.transform = `translateX(+10px)`;
+    ref.current!.style.transform = ``;
   }
 }
 
@@ -126,15 +130,20 @@ interface Props {
 
 const App: FC<Props> = (props) => {
 
+  const blockCover1 = useRef<HTMLDivElement>(null);
+  const blockCover2 = useRef<HTMLDivElement>(null);
+  const blockCover3 = useRef<HTMLDivElement>(null);
+  const blockCover4 = useRef<HTMLDivElement>(null);
+
   const text1 = useRef<HTMLDivElement>(null);
   const text2 = useRef<HTMLDivElement>(null);
   const text3 = useRef<HTMLDivElement>(null);
   const text4 = useRef<HTMLDivElement>(null);
 
-  const bk1 = useRef<HTMLDivElement>(null);
-  const bk2 = useRef<HTMLDivElement>(null);
-  const bk3 = useRef<HTMLDivElement>(null);
-  const bk4 = useRef<HTMLDivElement>(null);
+  const underLine1 = useRef<HTMLDivElement>(null);
+  const underLine2 = useRef<HTMLDivElement>(null);
+  const underLine3 = useRef<HTMLDivElement>(null);
+  const underLine4 = useRef<HTMLDivElement>(null);
 
   const mask1 = useRef<HTMLDivElement>(null);
   const mask2 = useRef<HTMLDivElement>(null);
@@ -162,43 +171,43 @@ const App: FC<Props> = (props) => {
     <Main ref={mainComponent}>
       <Cover>
         <Block>
-          <BlockCover
-          onMouseOver={blockMouseOver(text1, bk1, true)} 
-          onMouseOut={blockMouseOver(text1, bk1, false)}
+          <BlockCover ref={blockCover1}
+          onMouseOver={blockMouseOver(blockCover1, underLine1, true)} 
+          onMouseOut={blockMouseOver(blockCover1, underLine1, false)}
           >
             <BlockText ref={text1}>Block1</BlockText>
             <BlockMask ref={mask1}/>
-            <BlockUnderMask ref={bk1}/>
+            <BlockUnderMask ref={underLine1}/>
           </BlockCover>
         </Block>
         <Block>
-          <BlockCover
-          onMouseOver={blockMouseOver(text2, bk2, true)} 
-          onMouseOut={blockMouseOver(text2, bk2, false)}
+          <BlockCover ref={blockCover2}
+          onMouseOver={blockMouseOver(blockCover2, underLine2, true)} 
+          onMouseOut={blockMouseOver(blockCover2, underLine2, false)}
           >
             <BlockText ref={text2}>Block2</BlockText>
             <BlockMask ref={mask2}/>
-            <BlockUnderMask ref={bk2}/>
+            <BlockUnderMask ref={underLine2}/>
           </BlockCover>
         </Block>
         <Block>
-          <BlockCover
-          onMouseOver={blockMouseOver(text3, bk3, true)} 
-          onMouseOut={blockMouseOver(text3, bk3, false)}
+          <BlockCover ref={blockCover3}
+          onMouseOver={blockMouseOver(blockCover3, underLine3, true)} 
+          onMouseOut={blockMouseOver(blockCover3, underLine3, false)}
           >
             <BlockText ref={text3}>Block3123123123</BlockText>
             <BlockMask ref={mask3}/>
-            <BlockUnderMask ref={bk3}/>
+            <BlockUnderMask ref={underLine3}/>
           </BlockCover>
         </Block>
         <Block>
-          <BlockCover
-          onMouseOver={blockMouseOver(text4, bk4, true)} 
-          onMouseOut={blockMouseOver(text4, bk4, false)}
+          <BlockCover ref={blockCover4}
+          onMouseOver={blockMouseOver(blockCover4, underLine4, true)} 
+          onMouseOut={blockMouseOver(blockCover4, underLine4, false)}
           >
             <BlockText ref={text4}>Block네번째</BlockText>
             <BlockMask ref={mask4}/>
-            <BlockUnderMask ref={bk4}/>
+            <BlockUnderMask ref={underLine4}/>
           </BlockCover>
         </Block>
       </Cover>
