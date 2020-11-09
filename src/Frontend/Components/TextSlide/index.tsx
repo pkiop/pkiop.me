@@ -36,23 +36,46 @@ const Title = styled.div`
   text-align: center;
 `;
 
-
-
 const Frame = styled.img`
+  /* empty */
 `;
 
+const FrameWrap = styled.figure`
+  position:absolute; left:0; top:0; right:0; bottom:0; z-index:20;
+`
+
 const Fix = styled.div`
+  position: sticky; 
+  position: -webkit-sticky; 
+  top:calc(50vh - 204px); 
+  left: 0; 
+  z-index: 40; 
+  float:left; 
+  width:50%;
 `
 
 const ImageBlock = styled.div`
+  position:relative; 
+  width: 240px; 
+  height:409px; 
+  margin:0 auto;
 `;
+
+const ImageSliderWrap = styled.div`
+  overflow:hidden; position: absolute; left:15px; top:89px; z-index:10; width:195px; height:237px;
+`
 
 const ImageSlider = styled.div`
+  width: 780px; height: 100%; transition:transform .5s;
 `;
 
-const Image = styled.img`
-  width: 400px;
+const ImageWrap = styled.figure`
+  float:left; width:195px;
 `
+
+const Image = styled.img`
+`
+
 
 const Texts = styled.div`
   float:left; 
@@ -78,14 +101,28 @@ const App: FC<Props> = (props) => {
         </Texts>
         <Fix>
           <ImageBlock>
-            <Frame src={frameImg}></Frame>
-            <ImageSlider>
-              <Image src={Img1} />
-              <Image src={Img2} />
-              <Image src={Img3} />
-              <Image src={Img4} />
-            </ImageSlider>
+            <FrameWrap>
+              <Frame src={frameImg}></Frame>
+            </FrameWrap>
+            <ImageSliderWrap>
+              <ImageSlider>
+                <ImageWrap>
+                  <Image src={Img1} />
+                </ImageWrap>
+                <ImageWrap>
+                  <Image src={Img2} />
+                </ImageWrap>
+                
+                <ImageWrap>
+                  <Image src={Img3} />
+                </ImageWrap>
+                <ImageWrap>
+                  <Image src={Img4} />
+                </ImageWrap>
+              </ImageSlider>
+            </ImageSliderWrap>
           </ImageBlock>
+          
         </Fix>
       </Wrap>
     </Main>
