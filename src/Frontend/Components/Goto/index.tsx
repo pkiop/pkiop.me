@@ -2,6 +2,7 @@ import React from 'react';
 import { Fragment, FC, useState, useEffect, useRef } from 'react';
 import styled, { keyframes }from "styled-components";
 import { useComponentSize } from '@Hooks/ElementSize';
+import circleSvg from '@Images/gotocircle.svg';
 import {
   Link
 } from 'react-router-dom';
@@ -31,6 +32,15 @@ const text_opacity = keyframes`
       opacity: 1;
       color:#fff;
       transform:translateX(0%);
+  }
+`;
+
+const rotate_bg = keyframes`
+  0%{
+      transform:rotate(0deg);
+  }
+  100%{
+      transform:rotate(360deg);
   }
 `;
 
@@ -87,6 +97,12 @@ const BlockMask = styled.div`
 const BlockUnderMask = styled.div`
   position:absolute; left:0; bottom:0; z-index:11; width:0%; height:40%; background: #e9c400; transition:width .5s cubic-bezier(0.24, 0.77, 0.32, 0.95);
 `;
+
+const CircleImage = styled.img`
+  background-color: gray;
+  position:absolute; left:50%; top:50%; z-index:10; width:1200px; height:1215px; margin-left:-357px; margin-top:-350px;  background-size:cover; opacity: .15; animation:${rotate_bg} 40s infinite linear running;
+/* background-image:url('../images/bg_rotate01.png'); background-repeat: no-repeat; */
+`
 
 const setUnderMask= (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
   if(isActive) {
@@ -150,6 +166,8 @@ const App: FC<Props> = (props) => {
   const mask3 = useRef<HTMLDivElement>(null);
   const mask4 = useRef<HTMLDivElement>(null);
 
+  const bgImage = useRef<HTMLImageElement>(null);
+
   const mainComponent = useRef<HTMLDivElement>(null);
   const mainComponentSize = useComponentSize(mainComponent);
 
@@ -211,6 +229,7 @@ const App: FC<Props> = (props) => {
           </BlockCover>
         </Block>
       </Cover>
+      <CircleImage ref={bgImage} src={circleSvg}/> 
       
     </Main>
   )
