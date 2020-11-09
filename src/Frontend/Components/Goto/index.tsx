@@ -45,6 +45,7 @@ const rotate_bg = keyframes`
 `;
 
 const Main = styled.div`
+  overflow: hidden;
   position: relative;
   height:${window.innerHeight}px;
   background-color: black;
