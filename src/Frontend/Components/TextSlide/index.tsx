@@ -51,7 +51,7 @@ const ImageSlider = styled.div`
 `;
 
 const Image = styled.img`
-
+  width: 400px;
 `
 
 const Texts = styled.div`
@@ -59,8 +59,6 @@ const Texts = styled.div`
   width:50%; 
   padding-top:300px;
 `;
-
-
 
 interface Props {
   setSize: React.Dispatch<React.SetStateAction<number[]>>
