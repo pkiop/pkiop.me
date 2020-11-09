@@ -7,6 +7,7 @@ import {
 import AboutMe from '@Components/AboutMe';
 import Skills from '@Components/Skills';
 import Goto from '@Components/Goto';
+import TextSlide from '@Components/TextSlide';
 import { getScrollY } from '@Hooks/getScroll';
 import { remToPixel } from '@Utils/remToPixel';
 import { theme } from '@Styles/theme';
@@ -22,7 +23,7 @@ const App: FC = () => {
   const [ isAnimatedGoto, setIsAnimatedGoto ] = useState<boolean>(false);
   const mainComponent = useRef<HTMLDivElement>(null);
   const scrollY = getScrollY();
-  const [ running, setRunning ] = useState<boolean>(false);
+  const [ running, setRunning ] = useState<boolean>(true); // true로 하면 스크롤 반응 안함
 
   useEffect(() => {
     const htmlTag = mainComponent.current!.closest('body');
@@ -77,6 +78,7 @@ const App: FC = () => {
       <AboutMe setSize={setAboutMeSize}/>
       <Skills setSize={setSkillsSize}/>
       <Goto setSize={setGotoSize} isAnimated={isAnimatedGoto}/>
+      <TextSlide />
     </Main>
   )
 };
