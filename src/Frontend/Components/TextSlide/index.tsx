@@ -9,11 +9,13 @@ import Img3 from '@Images/3.jpg';
 import Img4 from '@Images/4.jpg';
 
 import { useComponentSize } from '@Hooks/ElementSize';
+import { getScrollY } from '@Hooks/getScroll';
 import {
   Link
 } from 'react-router-dom';
 
 const Main = styled.div`
+  box-sizing: border-box;
   width: 100%;
   position: relative;
   height: ${window.innerHeight}px;
@@ -84,13 +86,32 @@ const Texts = styled.div`
 `;
 
 interface Props {
-  setSize: React.Dispatch<React.SetStateAction<number[]>>
+  setSize: React.Dispatch<React.SetStateAction<number[]>>,
+  textSlideUpperSize: number,
 }
 
 const App: FC<Props> = (props) => {
+  const mainComponent = useRef<HTMLDivElement>(null);
+  const mainComponentSize = useComponentSize(mainComponent);
+  const scrollTop = props.textSlideUpperSize;
+  const scrollY = getScrollY();
+
+  useEffect(() => {
+    if(mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
+      props.setSize(mainComponentSize);
+    } else {
+      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'));
+      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'));
+      props.setSize([mainComponent.current!.scrollWidth, mainComponent.current!.scrollHeight + marginTop + marginBottom]);
+    }
+
+    const nowPosition = scrollY - scrollTop;
+    console.log("nowPosition : ", nowPosition);
+    console.log("scroll : ", scrollY);
+  }, [scrollY]);
 
   return (
-    <Main>
+    <Main ref={mainComponent}>
       <Wrap>
         <Title>TextSlide</Title>
         <Texts>
@@ -112,7 +133,6 @@ const App: FC<Props> = (props) => {
                 <ImageWrap>
                   <Image src={Img2} />
                 </ImageWrap>
-                
                 <ImageWrap>
                   <Image src={Img3} />
                 </ImageWrap>
