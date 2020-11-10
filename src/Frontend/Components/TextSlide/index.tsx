@@ -10,6 +10,8 @@ import Img4 from '@Images/4.jpg';
 
 import { useComponentSize } from '@Hooks/ElementSize';
 import { getScrollY } from '@Hooks/getScroll';
+
+import componentTotalHeight from '@Utils/componentTotalHeight';
 import {
   Link
 } from 'react-router-dom';
@@ -24,7 +26,7 @@ const Main = styled.div`
 
 const Wrap = styled.div`
   max-width: 1100px; 
-  height: 100%;
+  height: 200%; /* 이미지 어디까지 스크롤 될 지 오프셋*/
   margin: 0 auto;
 `;
 
@@ -96,6 +98,13 @@ const App: FC<Props> = (props) => {
   const scrollTop = props.textSlideUpperSize;
   const scrollY = getScrollY();
 
+  const titleRef = useRef<HTMLDivElement>(null);
+  const textsRef = useRef<HTMLDivElement>(null);
+  const textRefs = new Array<React.RefObject<HTMLDivElement>>();
+  for(let i=0;i<4;++i) {
+    textRefs.push(useRef<HTMLDivElement>(null));
+  }
+
   useEffect(() => {
     if(mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
       props.setSize(mainComponentSize);
@@ -108,17 +117,24 @@ const App: FC<Props> = (props) => {
     const nowPosition = scrollY - scrollTop;
     console.log("nowPosition : ", nowPosition);
     console.log("scroll : ", scrollY);
+
+    const titleHeight = componentTotalHeight(titleRef);
+    console.log("titleHeight : ", titleHeight);
+    textRefs.forEach((el) => {
+      const totalHeight = componentTotalHeight(el);
+      console.log("totalHeight : ", totalHeight);
+    })
   }, [scrollY]);
 
   return (
     <Main ref={mainComponent}>
       <Wrap>
-        <Title>TextSlide</Title>
-        <Texts>
-          <Text mt={0} mb={0} text={"text1"}/>
-          <Text mt={300} mb={0} text={"text1"}/>
-          <Text mt={300} mb={0} text={"text1"}/>
-          <Text mt={300} mb={500} text={"text1"}/>
+        <Title ref={titleRef}>TextSlide</Title>
+        <Texts >
+          <Text refObj={textRefs[0]} mt={300} mb={0} text={"text1"}/>
+          <Text refObj={textRefs[1]} mt={300} mb={0} text={"text2"}/>
+          <Text refObj={textRefs[2]} mt={300} mb={0} text={"text3"}/>
+          <Text refObj={textRefs[3]} mt={300} mb={500} text={"text4"}/>
         </Texts>
         <Fix>
           <ImageBlock>
