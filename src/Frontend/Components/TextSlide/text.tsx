@@ -12,6 +12,7 @@ const Main = styled.p`
   margin-bottom: ${props => props.mb}px;
 `
 interface Props {
+  refObj: React.RefObject<HTMLDivElement>
   mt: number;
   mb: number;
   text: string;
@@ -19,7 +20,7 @@ interface Props {
 
 const App: FC<Props> = (props) => {
   return (
-    <Main mt={props.mt} mb={props.mb}>
+    <Main ref={props.refObj} mt={props.mt} mb={props.mb}>
       {props.text} 
     </Main>
   )
