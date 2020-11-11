@@ -10,6 +10,8 @@ const Main = styled.p`
   transition:color .5s;
   margin-top: ${props => props.mt}px;
   margin-bottom: ${props => props.mb}px;
+  white-space: normal;
+  word-wrap: break-word;
 `
 interface Props {
   refObj: React.RefObject<HTMLDivElement>
