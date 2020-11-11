@@ -27,6 +27,7 @@ const Main = styled.div`
 interface wrapProps {
   height: number,
 }
+
 const Wrap = styled.div`
   max-width: 1100px; 
   height: ${(props: wrapProps)=>props.height}px; /* 이미지 어디까지 스크롤 될 지 오프셋*/
@@ -68,21 +69,37 @@ const ImageBlock = styled.div`
   margin:0 auto;
 `;
 
+interface imageSliderWrapProps {
+  width: number,
+}
+
 const ImageSliderWrap = styled.div`
-  overflow:hidden; position: absolute; left:15px; top:89px; z-index:10; width:195px; height:237px;
+  overflow:hidden; 
+  position: absolute;
+  left:15px; 
+  top:89px; 
+  z-index:10; 
+  width:${(props: imageSliderWrapProps) => props.width}px; 
+  height:237px;
 `
 
 const ImageSlider = styled.div`
-  width: 780px; height: 100%; transition:transform .5s;
+  width: 780px; 
+  height: 100%; 
+  transition:transform .5s;
 `;
 
+interface imageWrapProps {
+  width: number,
+}
+
 const ImageWrap = styled.figure`
-  float:left; width:195px;
+  float:left; 
+  width:${(props: imageWrapProps) => props.width}px;
 `
 
 const Image = styled.img`
 `
-
 
 const Texts = styled.div`
   float:left; 
@@ -94,6 +111,8 @@ interface Props {
   setSize: React.Dispatch<React.SetStateAction<number[]>>,
   textSlideUpperSize: number,
 }
+
+const sliderImageWidth = 195;
 
 const App: FC<Props> = (props) => {
   const mainComponent = useRef<HTMLDivElement>(null);
@@ -130,7 +149,7 @@ const App: FC<Props> = (props) => {
       const totalHeight = componentTotalHeight(el);
       console.log("totalHeight : ", totalHeight);
     })
-    const translateOffset = 195;
+    const translateOffset = sliderImageWidth;
     if(titleHeight > nowPosition) {
       imageSliderRef.current!.style.transform = `translateX(${translateOffset*0}px)`;
       textRefs[0].current!.style.color= `black`;
@@ -152,8 +171,6 @@ const App: FC<Props> = (props) => {
     }
   }, [scrollY]);
 
-
-
   return (
     <Main ref={mainComponent}>
       <Wrap height={3300}> 
@@ -169,18 +186,18 @@ const App: FC<Props> = (props) => {
             <FrameWrap>
               <Frame src={frameImg}></Frame>
             </FrameWrap>
-            <ImageSliderWrap>
+            <ImageSliderWrap width={sliderImageWidth}>
               <ImageSlider ref={imageSliderRef}>
-                <ImageWrap>
+                <ImageWrap width={sliderImageWidth}>
                   <Image src={Img1} />
                 </ImageWrap>
-                <ImageWrap>
+                <ImageWrap width={sliderImageWidth}>
                   <Image src={Img2} />
                 </ImageWrap>
-                <ImageWrap>
+                <ImageWrap width={sliderImageWidth}>
                   <Image src={Img3} />
                 </ImageWrap>
-                <ImageWrap>
+                <ImageWrap width={sliderImageWidth}>
                   <Image src={Img4} />
                 </ImageWrap>
               </ImageSlider>
