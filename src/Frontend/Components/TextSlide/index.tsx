@@ -100,6 +100,8 @@ const App: FC<Props> = (props) => {
 
   const titleRef = useRef<HTMLDivElement>(null);
   const textsRef = useRef<HTMLDivElement>(null);
+  const imageSliderRef = useRef<HTMLDivElement>(null);
+
   const textRefs = new Array<React.RefObject<HTMLDivElement>>();
   for(let i=0;i<4;++i) {
     textRefs.push(useRef<HTMLDivElement>(null));
@@ -124,6 +126,16 @@ const App: FC<Props> = (props) => {
       const totalHeight = componentTotalHeight(el);
       console.log("totalHeight : ", totalHeight);
     })
+    const translateOffset = 195;
+    if(titleHeight > nowPosition) {
+      imageSliderRef.current!.style.transform = `translateX(${translateOffset*0}px)`;
+    } else if(titleHeight + componentTotalHeight(textRefs[0]) > nowPosition) {
+      imageSliderRef.current!.style.transform = `translateX(${-1 * translateOffset}px)`;
+    } else if(titleHeight + componentTotalHeight(textRefs[1]) + componentTotalHeight(textRefs[1]) > nowPosition) {
+      imageSliderRef.current!.style.transform = `translateX(${-2 * translateOffset}px)`;
+    } else if (componentTotalHeight(textRefs[2]) > nowPosition) {
+      imageSliderRef.current!.style.transform = `translateX(${-3 * translateOffset}px)`;
+    }
   }, [scrollY]);
 
   return (
@@ -142,7 +154,7 @@ const App: FC<Props> = (props) => {
               <Frame src={frameImg}></Frame>
             </FrameWrap>
             <ImageSliderWrap>
-              <ImageSlider>
+              <ImageSlider ref={imageSliderRef}>
                 <ImageWrap>
                   <Image src={Img1} />
                 </ImageWrap>
