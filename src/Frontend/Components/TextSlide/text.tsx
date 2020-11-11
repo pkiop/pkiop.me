@@ -5,7 +5,6 @@ import styled from "styled-components";
 const Main = styled.p`
   max-width:80%;
   font-size:36px; 
-  font-family:'NotoM'; 
   color:#333; 
   transition:color .5s;
   margin-top: ${props => props.mt}px;

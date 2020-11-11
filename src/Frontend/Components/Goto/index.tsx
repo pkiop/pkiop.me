@@ -214,7 +214,7 @@ const App: FC<Props> = (props) => {
           onMouseOver={blockMouseOver(blockCover3, underLine3, true)} 
           onMouseOut={blockMouseOver(blockCover3, underLine3, false)}
           >
-            <BlockText ref={text3}>Block3123123123</BlockText>
+            <BlockText ref={text3}>Block3 조금 긴 block</BlockText>
             <BlockMask ref={mask3}/>
             <BlockUnderMask ref={underLine3}/>
           </BlockCover>
