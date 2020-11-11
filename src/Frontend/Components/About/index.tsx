@@ -26,7 +26,7 @@ const App: FC = () => {
   const [ isAnimatedGoto, setIsAnimatedGoto ] = useState<boolean>(false);
   const mainComponent = useRef<HTMLDivElement>(null);
   const scrollY = getScrollY();
-  const [ running, setRunning ] = useState<boolean>(true); // true로 하면 스크롤 반응 안함
+  const [ running, setRunning ] = useState<boolean>(false); // true로 하면 스크롤 반응 안함
 
   useEffect(() => {
     const htmlTag = mainComponent.current!.closest('body');
