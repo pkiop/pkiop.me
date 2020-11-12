@@ -37,7 +37,7 @@ const Wrap = styled.div`
 const Title = styled.div`
   position:relative;
   z-index:50;
-  margin-top:170px;
+  padding-top:170px;
   margin-bottom:170px;
   font-size:200px;
   color:#333;
