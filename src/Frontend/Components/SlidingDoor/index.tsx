@@ -1,5 +1,5 @@
 import React from 'react';
-import { Fragment, FC, useState, useEffect, useRef } from 'react';
+import { Fragment, FC, useState, useEffect, useRef, useReducer } from 'react';
 import styled from "styled-components";
 import hideImage from '@Images/hideImage.jpg';
 import { useComponentSize } from '@Hooks/ElementSize';
@@ -61,6 +61,7 @@ interface Props {
 const App: FC<Props> = (props) => {
   const mainComponent = useRef<HTMLDivElement>(null);
   const mainComponentSize = useComponentSize(mainComponent);
+  const [scailing, setScailing] = useReducer(state => !state, false);
 
   const scrollTop = props.slidingDoorUpperSize;
   const scrollY = getScrollY();
@@ -92,12 +93,19 @@ const App: FC<Props> = (props) => {
       LeftDoorComponent.current!.style.width = `${50 - progress}%`;
       RightDoorComponent.current!.style.width = `${50 - progress}%`;
       if(progress <= 25) {
+        setScailing();
         HideImageComponent.current!.style.transform = `scale(${1.5 - Number((progress * 0.02).toFixed(2))})`;
       } else {
-        HideImageComponent.current!.style.transform = `scale(1.0)`;
+        if(scailing === true) {
+          HideImageComponent.current!.style.transform = `scale(1.0)`;
+          setScailing();
+        }
       }
     } else {
-      HideImageComponent.current!.style.transform = `scale(1.5)`;
+      if(scailing === true) {
+        HideImageComponent.current!.style.transform = `scale(1.5)`;
+        setScailing();
+      }
       LeftDoorComponent.current!.style.width = `50%`;
       RightDoorComponent.current!.style.width = `50%`;
     }
