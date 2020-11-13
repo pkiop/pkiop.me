@@ -38,7 +38,7 @@ const LeftDoor = styled.div`
   left: 0;
   width: 50%;
   height:100%;
-  background-color: rgba(100,100,100,0.5);
+  background-color: rgba(100,100,100,1);
   z-index: 5;
 `
 
@@ -47,7 +47,7 @@ const RightDoor = styled.div`
   right: 0;
   width: 50%;
   height:100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,1);
   z-index: 5;
 `
 
@@ -79,15 +79,18 @@ const App: FC<Props> = (props) => {
     const totalHeight = mainComponent.current!.scrollHeight; 
     const scrollRangeMax = totalHeight - window.innerHeight;
     props.setSize([mainComponent.current!.scrollWidth, totalHeight]);
-    const progress:number = Math.floor(50 * (scrollY - scrollTop) / (scrollRangeMax));
+    const progress:string = (50 * (scrollY - scrollTop) / (scrollRangeMax)).toFixed(2);
     console.log(mainComponentSize);
     console.log("scrollY : ", scrollY);
     console.log("scrollTop : ", scrollTop);
     console.log("scrollMax : ", scrollRangeMax);
     console.log("progress : ", progress);
-    if(progress >= 0) {
-      LeftDoorComponent.current!.style.width = `${100 - progress}%`
-      RightDoorComponent.current!.style.width = `${100 - progress}%`
+    if(Number(progress) >= 0) {
+      LeftDoorComponent.current!.style.width = `${50 - Number(progress)}%`
+      RightDoorComponent.current!.style.width = `${50 - Number(progress)}%`
+    } else {
+      LeftDoorComponent.current!.style.width = `50%`;
+      RightDoorComponent.current!.style.width = `50%`;
     }
 
 
