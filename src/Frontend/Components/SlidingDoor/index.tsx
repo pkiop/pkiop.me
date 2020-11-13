@@ -18,6 +18,7 @@ const Main = styled.div`
 ` 
 
 const Fix = styled.div`
+  overflow: hidden;
   position: sticky; 
   position: -webkit-sticky; 
   top: 0;
@@ -30,6 +31,7 @@ const Fix = styled.div`
 
 const HideImage = styled.img`
   position: absolute;
+  transform: scale(1.5);
   top:0;
 `
 
@@ -65,6 +67,7 @@ const App: FC<Props> = (props) => {
   // TODO 0~100까지만 가능한 타입 만들기. 
   // 현재는 array이용 배열 생성해서 타입으로 만드는게 방법인 듯 
   
+  const HideImageComponent = useRef<HTMLImageElement>(null);
   const LeftDoorComponent = useRef<HTMLDivElement>(null);
   const RightDoorComponent = useRef<HTMLDivElement>(null);
 
@@ -79,16 +82,22 @@ const App: FC<Props> = (props) => {
     const totalHeight = mainComponent.current!.scrollHeight; 
     const scrollRangeMax = totalHeight - window.innerHeight;
     props.setSize([mainComponent.current!.scrollWidth, totalHeight]);
-    const progress:string = (50 * (scrollY - scrollTop) / (scrollRangeMax)).toFixed(2);
-    console.log(mainComponentSize);
-    console.log("scrollY : ", scrollY);
-    console.log("scrollTop : ", scrollTop);
-    console.log("scrollMax : ", scrollRangeMax);
-    console.log("progress : ", progress);
-    if(Number(progress) >= 0) {
-      LeftDoorComponent.current!.style.width = `${50 - Number(progress)}%`
-      RightDoorComponent.current!.style.width = `${50 - Number(progress)}%`
+    const progress:number= Number((50 * (scrollY - scrollTop) / (scrollRangeMax)).toFixed(2));
+    // console.log(mainComponentSize);
+    // console.log("scrollY : ", scrollY);
+    // console.log("scrollTop : ", scrollTop);
+    // console.log("scrollMax : ", scrollRangeMax);
+    // console.log("progress : ", progress);
+    if(progress >= 0) {
+      LeftDoorComponent.current!.style.width = `${50 - progress}%`;
+      RightDoorComponent.current!.style.width = `${50 - progress}%`;
+      if(progress <= 25) {
+        HideImageComponent.current!.style.transform = `scale(${1.5 - Number((progress * 0.02).toFixed(2))})`;
+      } else {
+        HideImageComponent.current!.style.transform = `scale(1.0)`;
+      }
     } else {
+      HideImageComponent.current!.style.transform = `scale(1.5)`;
       LeftDoorComponent.current!.style.width = `50%`;
       RightDoorComponent.current!.style.width = `50%`;
     }
@@ -99,7 +108,7 @@ const App: FC<Props> = (props) => {
   return (
     <Main ref={mainComponent}>
       <Fix>
-        <HideImage src={hideImage} />
+        <HideImage ref={HideImageComponent} src={hideImage} />
         <LeftDoor ref={LeftDoorComponent}/> 
         <RightDoor ref={RightDoorComponent}/> 
       </Fix>
