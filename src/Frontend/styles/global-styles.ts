@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
+export const dummp = 1;
 export const GlobalStyle = createGlobalStyle`
   ${reset}
   body {
@@ -14,4 +15,4 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
-`
+`;

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   BrowserRouter,
   Switch,
   Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import HeaderBar from '@Components/HeaderBar';
@@ -13,42 +13,39 @@ import About from '@Components/About';
 import Post from '@Components/PostComponent';
 import TIL from '@Components/TIL';
 import LM from '@Components/LM';
-import { FC } from 'react';
 
 import { theme } from '@Styles/theme';
 import { GlobalStyle } from '@Styles/global-styles';
 
-const App: FC = () => {
-    return (
-      <BrowserRouter>        
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <Switch>
-            <Route exact path="/">
-              <HeaderBar />
-              <About />
-            </Route>
-            <Route path="/portfolio">
-              <HeaderBar />
-              <Portfolio />
-            </Route>
-            <Route path="/post">
-              <HeaderBar />
-              <Post />
-            </Route>
-            <Route path="/TIL">
-              <HeaderBar />
-              <TIL />
-            </Route>
-            <Route path="/LM">
-              <HeaderBar />
-              <LM />
-            </Route>
-          </Switch>
-        </ThemeProvider>
+const App: FC = () => (
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Switch>
+        <Route exact path="/">
+          <HeaderBar />
+          <About />
+        </Route>
+        <Route path="/portfolio">
+          <HeaderBar />
+          <Portfolio />
+        </Route>
+        <Route path="/post">
+          <HeaderBar />
+          <Post />
+        </Route>
+        <Route path="/TIL">
+          <HeaderBar />
+          <TIL />
+        </Route>
+        <Route path="/LM">
+          <HeaderBar />
+          <LM />
+        </Route>
+      </Switch>
+    </ThemeProvider>
 
-      </BrowserRouter>
-    )
-};
+  </BrowserRouter>
+);
 
 export default App;

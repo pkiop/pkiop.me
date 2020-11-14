@@ -1,10 +1,12 @@
-import React, { useLayoutEffect } from 'react';
-import { Fragment, FC, useState, useEffect, useRef } from 'react';
-import styled from "styled-components";
+import React, {
+  FC, useState, useEffect, useRef,
+} from 'react';
+
+import styled from 'styled-components';
 import profile from '@Images/profile.png';
 import { useComponentSize } from '@Hooks/ElementSize';
 import {
-  Link
+  Link,
 } from 'react-router-dom';
 
 const Main = styled.div`
@@ -13,7 +15,7 @@ const Main = styled.div`
   align-items: center;
   height: 1000px;
   margin: 160px 200px;
-` 
+`;
 
 const Title = styled.div`
   width: 160px;
@@ -22,59 +24,62 @@ const Title = styled.div`
   font-weight: 300;
   text-align: center;
   margin: 25px;
-`
+`;
 const Line = styled.div`
   width: 80px;
   height: 5px;
   border-radius: 2px;
-  background-color: ${props => props.theme.subColor};
+  background-color: ${(props) => props.theme.subColor};
   margin-bottom: 50px;
-`
+`;
 
 const Picture = styled.img`
   width:200px;
   height:200px;
   border-radius: 100px;
   margin: 30px;
-`
+`;
 
 const MainText = styled.div`
   font-size: 15px;
-`
+`;
 
 const getText = async () => {
-  const result = await fetch('http://localhost:3000/api/aboutme');
-  return await result.json();
-}
+  const fetchData = await fetch('http://localhost:3000/api/aboutme');
+  const res = await fetchData.json();
+  return res;
+};
 
 interface Props {
   setSize: React.Dispatch<React.SetStateAction<number[]>>
 }
 const App: FC<Props> = (props) => {
-  const [mt, setMt] = useState("");
+  const [mt, setMt] = useState('');
   const mainComponent = useRef<HTMLDivElement>(null);
   const mainComponentSize = useComponentSize(mainComponent);
 
   useEffect(() => {
-    if(mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
+    if (mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
       props.setSize(mainComponentSize);
     } else {
-      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'));
-      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'));
-      props.setSize([mainComponent.current!.scrollWidth, mainComponent.current!.scrollHeight + marginTop + marginBottom]);
+      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'), 10);
+      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'), 10);
+      props.setSize([
+        mainComponent.current!.scrollWidth,
+        mainComponent.current!.scrollHeight + marginTop + marginBottom,
+      ]);
     }
-    getText().then(res => setMt(res.mainText));
+    getText().then((res) => setMt(res.mainText));
   }, [mainComponentSize, mainComponent.current]);
 
   return (
-      <Main ref={mainComponent}>
-        <Title>About Me</Title>
-        <Line />
-        <Picture src={profile}/>
-        <MainText>{mt}</MainText>
-      </Main>
-    )
-  };
-  
+    <Main ref={mainComponent}>
+      <Title>About Me</Title>
+      <Line />
+      <Picture src={profile}/>
+      <MainText>{mt}</MainText>
+    </Main>
+  );
+};
 
 export default App;

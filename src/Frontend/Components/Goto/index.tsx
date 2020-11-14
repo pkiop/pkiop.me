@@ -1,13 +1,16 @@
-import React from 'react';
-import { Fragment, FC, useState, useEffect, useRef } from 'react';
-import styled, { keyframes }from "styled-components";
+/* eslint-disable no-param-reassign */
+import React, {
+  Fragment, FC, useState, useEffect, useRef,
+} from 'react';
+
+import styled, { keyframes } from 'styled-components';
 import { useComponentSize } from '@Hooks/ElementSize';
 import circleSvg from '@Images/gotocircle.svg';
 import {
-  Link
+  Link,
 } from 'react-router-dom';
 
-const text_mask = keyframes`
+const textMask = keyframes`
     0%{
         width: 0%;
         transform:translateX(0%);
@@ -22,7 +25,7 @@ const text_mask = keyframes`
     }
 `;
 
-const text_opacity = keyframes`
+const textOpacity = keyframes`
   0%{
       opacity: 0;
       color:#3535ff;
@@ -35,7 +38,7 @@ const text_opacity = keyframes`
   }
 `;
 
-const rotate_bg = keyframes`
+const rotateBg = keyframes`
   0%{
       transform:rotate(0deg);
   }
@@ -49,13 +52,13 @@ const Main = styled.div`
   position: relative;
   height:${window.innerHeight}px;
   background-color: black;
-`
+`;
 
 const Cover = styled.div`
   position: relative; z-index: 20;
   top: 20%;
   left: 5%;
-`
+`;
 
 const Block = styled.div`
   display: flex; 
@@ -71,7 +74,7 @@ const BlockCover = styled.div`
   line-height: 1; 
   color:#fff;
   transition:transform .5s;
-`
+`;
 
 const BlockText = styled.div`
   position:relative;
@@ -81,7 +84,7 @@ const BlockText = styled.div`
   line-height: 1;
   color:#fff;
   transition:transform .5s;
-  animation:${text_opacity} 2s 1s 1 cubic-bezier(0.24, 0.77, 0.32, 0.95) both paused;
+  animation:${textOpacity} 2s 1s 1 cubic-bezier(0.24, 0.77, 0.32, 0.95) both paused;
 `;
 
 const BlockMask = styled.div`
@@ -92,7 +95,7 @@ const BlockMask = styled.div`
   z-index:10;
   height:100%;
   background: #fff;
-  animation:${text_mask} 2s 1 cubic-bezier(0.24, 0.77, 0.32, 0.95) both paused;
+  animation:${textMask} 2s 1 cubic-bezier(0.24, 0.77, 0.32, 0.95) both paused;
 `;
 
 const BlockUnderMask = styled.div`
@@ -101,52 +104,49 @@ const BlockUnderMask = styled.div`
 
 const CircleImage = styled.img`
   background-color: gray;
-  position:absolute; left:50%; top:50%; z-index:10; width:1200px; height:1215px; margin-left:-357px; margin-top:-350px;  background-size:cover; opacity: .15; animation:${rotate_bg} 40s infinite linear running;
+  position:absolute; left:50%; top:50%; z-index:10; width:1200px; height:1215px; margin-left:-357px; margin-top:-350px;  background-size:cover; opacity: .15; animation:${rotateBg} 40s infinite linear running;
 /* background-image:url('../images/bg_rotate01.png'); background-repeat: no-repeat; */
-`
+`;
 
-const setUnderMask= (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
-  if(isActive) {
-    ref.current!.style.width = "100%";
+const setUnderMask = (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
+  if (isActive) {
+    ref.current!.style.width = '100%';
   } else {
-    ref.current!.style.width = "0%";
+    ref.current!.style.width = '0%';
   }
-}
+};
 
 const setTextMove = (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
-  console.log("ref : ", ref);
-  if(isActive) {
-    console.log("active");
-    ref.current!.style.transform = `translateX(-10px)`;
-    ref.current!.style.webkitTransform = `translateX(-10px)`; 
+  if (isActive) {
+    console.log('active');
+    ref.current!.style.transform = 'translateX(-10px)';
+    ref.current!.style.webkitTransform = 'translateX(-10px)';
   } else {
-    ref.current!.style.transform = ``;
+    ref.current!.style.transform = '';
   }
-}
+};
 
 const blockMouseOver = (
   textRef: React.RefObject<HTMLDivElement>,
   underLineRef: React.RefObject<HTMLDivElement>,
-  isActive: boolean) => {
-    return () => {
-      setTextMove(textRef, isActive);
-      setUnderMask(underLineRef, isActive);
-    }
-  }
+  isActive: boolean,
+) => () => {
+  setTextMove(textRef, isActive);
+  setUnderMask(underLineRef, isActive);
+};
 
 const runningAnimation = (elements: Array<React.RefObject<HTMLDivElement>>) => {
   elements.forEach((el) => {
-    el.current!.style.animationPlayState = "running";
-  })
-}
+    el.current!.style.animationPlayState = 'running';
+  });
+};
 
 interface Props {
   isAnimated: boolean;
   setSize: React.Dispatch<React.SetStateAction<number[]>>
-};
+}
 
 const App: FC<Props> = (props) => {
-
   const blockCover1 = useRef<HTMLDivElement>(null);
   const blockCover2 = useRef<HTMLDivElement>(null);
   const blockCover3 = useRef<HTMLDivElement>(null);
@@ -173,26 +173,28 @@ const App: FC<Props> = (props) => {
   const mainComponentSize = useComponentSize(mainComponent);
 
   useEffect(() => {
-    if(mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
+    if (mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
       props.setSize(mainComponentSize);
     } else {
-      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'));
-      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'));
-      props.setSize([mainComponent.current!.scrollWidth, mainComponent.current!.scrollHeight + marginTop + marginBottom]);
+      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'), 10);
+      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'), 10);
+      props.setSize([
+        mainComponent.current!.scrollWidth,
+        mainComponent.current!.scrollHeight + marginTop + marginBottom,
+      ]);
     }
-    if(props.isAnimated === true) {
+    if (props.isAnimated === true) {
       runningAnimation([text1, text2, text3, text4, mask1, mask2, mask3, mask4]);
     }
   }, [props.isAnimated, mainComponentSize, mainComponent.current]);
-
 
   return (
     <Main ref={mainComponent}>
       <Cover>
         <Block>
           <BlockCover ref={blockCover1}
-          onMouseOver={blockMouseOver(blockCover1, underLine1, true)} 
-          onMouseOut={blockMouseOver(blockCover1, underLine1, false)}
+            onMouseOver={blockMouseOver(blockCover1, underLine1, true)}
+            onMouseOut={blockMouseOver(blockCover1, underLine1, false)}
           >
             <BlockText ref={text1}>Block1</BlockText>
             <BlockMask ref={mask1}/>
@@ -201,8 +203,8 @@ const App: FC<Props> = (props) => {
         </Block>
         <Block>
           <BlockCover ref={blockCover2}
-          onMouseOver={blockMouseOver(blockCover2, underLine2, true)} 
-          onMouseOut={blockMouseOver(blockCover2, underLine2, false)}
+            onMouseOver={blockMouseOver(blockCover2, underLine2, true)}
+            onMouseOut={blockMouseOver(blockCover2, underLine2, false)}
           >
             <BlockText ref={text2}>Block2</BlockText>
             <BlockMask ref={mask2}/>
@@ -211,8 +213,8 @@ const App: FC<Props> = (props) => {
         </Block>
         <Block>
           <BlockCover ref={blockCover3}
-          onMouseOver={blockMouseOver(blockCover3, underLine3, true)} 
-          onMouseOut={blockMouseOver(blockCover3, underLine3, false)}
+            onMouseOver={blockMouseOver(blockCover3, underLine3, true)}
+            onMouseOut={blockMouseOver(blockCover3, underLine3, false)}
           >
             <BlockText ref={text3}>Block3 조금 긴 block</BlockText>
             <BlockMask ref={mask3}/>
@@ -221,8 +223,8 @@ const App: FC<Props> = (props) => {
         </Block>
         <Block>
           <BlockCover ref={blockCover4}
-          onMouseOver={blockMouseOver(blockCover4, underLine4, true)} 
-          onMouseOut={blockMouseOver(blockCover4, underLine4, false)}
+            onMouseOver={blockMouseOver(blockCover4, underLine4, true)}
+            onMouseOut={blockMouseOver(blockCover4, underLine4, false)}
           >
             <BlockText ref={text4}>Block네번째</BlockText>
             <BlockMask ref={mask4}/>
@@ -230,10 +232,10 @@ const App: FC<Props> = (props) => {
           </BlockCover>
         </Block>
       </Cover>
-      <CircleImage ref={bgImage} src={circleSvg}/> 
-      
+      <CircleImage ref={bgImage} src={circleSvg}/>
+
     </Main>
-  )
+  );
 };
 
 export default App;

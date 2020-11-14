@@ -1,17 +1,11 @@
-import React from 'react';
-import { Fragment, FC, useState, useEffect } from 'react';
-import styled from "styled-components";
-import {
-  Link
-} from 'react-router-dom';
+import React, {
+  FC,
+} from 'react';
 
-const App: FC = () => {
-
-  return (
-    <>
-      <h1>Post</h1> 
-    </>
-  )
-};
+const App: FC = () => (
+  <>
+    <h1>Post</h1>
+  </>
+);
 
 export default App;
