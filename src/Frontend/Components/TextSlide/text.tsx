@@ -1,6 +1,8 @@
-import React from 'react';
-import { Fragment, FC, useState, useEffect, useRef } from 'react';
-import styled from "styled-components";
+import React, {
+  FC,
+} from 'react';
+
+import styled from 'styled-components';
 
 interface mainProps {
   mt: number,
@@ -16,20 +18,19 @@ const Main = styled.p`
   margin-bottom: ${(props:mainProps) => props.mb}px;
   white-space: normal;
   word-wrap: break-word;
-`
+`;
+
 interface Props {
-  refObj: React.RefObject<HTMLDivElement>
+  refObj:React.RefObject<HTMLDivElement>
   mt: number;
   mb: number;
   text: string;
 }
 
-const App: FC<Props> = (props) => {
-  return (
-    <Main ref={props.refObj} mt={props.mt} mb={props.mb}>
-      {props.text} 
-    </Main>
-  )
-};
+const App: FC<Props> = (props) => (
+  <Main ref={props.refObj} mt={props.mt} mb={props.mb}>
+    {props.text}
+  </Main>
+);
 
 export default App;

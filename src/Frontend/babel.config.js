@@ -1,13 +1,13 @@
 module.exports = {
   presets: [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
         targets: {
-          chrome: "79", // 크롬 79까지 지원하는 코드를 만든다
-          ie: "11",
+          chrome: '79', // 크롬 79까지 지원하는 코드를 만든다
+          ie: '11',
         },
-        useBuiltIns: "usage",
+        useBuiltIns: 'usage',
         corejs: {
           version: 3,
         },
@@ -16,7 +16,7 @@ module.exports = {
   ],
   env: {
     test: {
-      plugins: ["transform-es2015-modules-commonjs"],
+      plugins: ['transform-es2015-modules-commonjs'],
     },
   },
 };

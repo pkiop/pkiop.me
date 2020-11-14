@@ -1,8 +1,8 @@
-import React from 'react';
-import { FC } from 'react';
-import styled from "styled-components";
+import React, { FC } from 'react';
+
+import styled from 'styled-components';
 import {
-  Link
+  Link,
 } from 'react-router-dom';
 
 const LinkBtn = styled.div`
@@ -12,22 +12,19 @@ const LinkBtn = styled.div`
   :hover {
     color: red;
   }
-`
+`;
 
 interface Props {
   title: string;
   link: string;
 }
 
-const App: FC<Props> = ({ title, link }) => {
-
-  return (
-    <>
-      <LinkBtn>
-        <Link to={link}>{title}</Link>
-      </LinkBtn>
-    </>
-  )
-};
+const App: FC<Props> = ({ title, link }) => (
+  <>
+    <LinkBtn>
+      <Link to={link}>{title}</Link>
+    </LinkBtn>
+  </>
+);
 
 export default App;
