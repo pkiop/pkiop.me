@@ -1,6 +1,7 @@
-import React, { useState, useLayoutEffect} from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 
-export const getScrollY= () => {
+export const dummy = 1;
+export const getScrollY = () => {
   const [scrollY, setScrollY] = useState(0);
   useLayoutEffect(() => {
     function updateTop() {
@@ -11,4 +12,4 @@ export const getScrollY= () => {
     return () => window.removeEventListener('onscroll', updateTop);
   }, []);
   return scrollY;
-}
+};

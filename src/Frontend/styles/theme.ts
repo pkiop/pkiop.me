@@ -1,4 +1,4 @@
-
+export const dummy = 1;
 export const theme = {
   mainFontSize: 16,
 
