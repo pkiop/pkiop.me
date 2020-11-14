@@ -124,23 +124,29 @@ const App: FC<Props> = (props) => {
     const totalHeight = mainComponent.current!.scrollHeight;
     const scrollRangeMax = totalHeight - window.innerHeight;
     props.setSize([mainComponent.current!.scrollWidth, totalHeight]);
-    const progress:number = Number(((50 * (scrollY - scrollTop) / (scrollRangeMax)).toFixed(2)));
+    const progress:number = Number(((50 * (scrollY - scrollTop)) / scrollRangeMax).toFixed(2));
     if (progress >= 0) {
-      if (progress >= 0 && progress <= 5) {
+      if (progress >= 0 && progress < 5) {
+        if (!introTextVisible) {
+          setIntroTextVisible();
+          IntroTextComponent.current!.style.opacity = String(1);
+        }
+      }
+      if (progress >= 5 && progress <= 15) {
         if (!introTextVisible) {
           setIntroTextVisible();
         }
-        const introOpacity = (5 - progress) * 0.2;
+        const introOpacity = (10 - (progress - 5)) * 0.1;
         IntroTextComponent.current!.style.opacity = String(introOpacity);
       } else if (introTextVisible) {
         setIntroTextVisible();
-          IntroTextComponent.current!.style.opacity = String(0);
+        IntroTextComponent.current!.style.opacity = String(0);
       }
-      if (progress >= 45) {
+      if (progress >= 40) {
         if (!endingTextVisible) {
           setEndingTextVisible();
         }
-        const endingOpacity = (progress - 45) * 0.2;
+        const endingOpacity = (progress - 40) * 0.1;
         EndingTextComponent.current!.style.opacity = String(endingOpacity);
       } else if (endingTextVisible) {
         setIntroTextVisible();
