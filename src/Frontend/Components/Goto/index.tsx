@@ -118,7 +118,6 @@ const setUnderMask = (ref: React.RefObject<HTMLDivElement>, isActive: boolean) =
 
 const setTextMove = (ref: React.RefObject<HTMLDivElement>, isActive: boolean) => {
   if (isActive) {
-    console.log('active');
     ref.current!.style.transform = 'translateX(-10px)';
     ref.current!.style.webkitTransform = 'translateX(-10px)';
   } else {

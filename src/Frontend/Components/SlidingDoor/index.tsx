@@ -53,30 +53,38 @@ const RightDoor = styled.div`
 
 const IntroText = styled.div`
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
+
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+
+  background-color: rgb(255,255,255);
+  opacity: 1;
   z-index: 3;
-  text-align: center;
 `;
 
 const EndingText = styled.div`
   position: absolute; 
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
 
   width: 100%;
   height: 100%;
 
-
-  background-color: rgba(100,100,100,0.5);
-  z-index: 4;
+  background-color: rgb(255,255,255);
+  opacity: 0;
+  z-index: 3;
 `;
 
 const Text = styled.div`
+  font-size: 40px;
 `;
 
 interface Props {
@@ -88,6 +96,8 @@ const App: FC<Props> = (props) => {
   const mainComponent = useRef<HTMLDivElement>(null);
   const mainComponentSize = useComponentSize(mainComponent);
   const [scailing, setScailing] = useReducer((state) => !state, false);
+  const [introTextVisible, setIntroTextVisible] = useReducer((state) => !state, false);
+  const [endingTextVisible, setEndingTextVisible] = useReducer((state) => !state, false);
 
   const scrollTop = props.slidingDoorUpperSize;
   const scrollY = getScrollY();
@@ -97,6 +107,8 @@ const App: FC<Props> = (props) => {
   const HideImageComponent = useRef<HTMLImageElement>(null);
   const LeftDoorComponent = useRef<HTMLDivElement>(null);
   const RightDoorComponent = useRef<HTMLDivElement>(null);
+  const IntroTextComponent = useRef<HTMLDivElement>(null);
+  const EndingTextComponent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
@@ -112,13 +124,34 @@ const App: FC<Props> = (props) => {
     const totalHeight = mainComponent.current!.scrollHeight;
     const scrollRangeMax = totalHeight - window.innerHeight;
     props.setSize([mainComponent.current!.scrollWidth, totalHeight]);
-    const progress:number = Number(((50 * (scrollY - scrollTop) / (scrollRangeMax)).toFixed(2));
-    // console.log(mainComponentSize);
-    // console.log("scrollY : ", scrollY);
-    // console.log("scrollTop : ", scrollTop);
-    // console.log("scrollMax : ", scrollRangeMax);
-    // console.log("progress : ", progress);
+    const progress:number = Number(((50 * (scrollY - scrollTop)) / scrollRangeMax).toFixed(2));
     if (progress >= 0) {
+      if (progress >= 0 && progress < 5) {
+        if (!introTextVisible) {
+          setIntroTextVisible();
+          IntroTextComponent.current!.style.opacity = String(1);
+        }
+      }
+      if (progress >= 5 && progress <= 15) {
+        if (!introTextVisible) {
+          setIntroTextVisible();
+        }
+        const introOpacity = (10 - (progress - 5)) * 0.1;
+        IntroTextComponent.current!.style.opacity = String(introOpacity);
+      } else if (introTextVisible) {
+        setIntroTextVisible();
+        IntroTextComponent.current!.style.opacity = String(0);
+      }
+      if (progress >= 40) {
+        if (!endingTextVisible) {
+          setEndingTextVisible();
+        }
+        const endingOpacity = (progress - 40) * 0.1;
+        EndingTextComponent.current!.style.opacity = String(endingOpacity);
+      } else if (endingTextVisible) {
+        setIntroTextVisible();
+          EndingTextComponent.current!.style.opacity = String(0);
+      }
       LeftDoorComponent.current!.style.width = `${50 - progress}%`;
       RightDoorComponent.current!.style.width = `${50 - progress}%`;
       if (progress <= 25) {
@@ -144,8 +177,12 @@ const App: FC<Props> = (props) => {
         <HideImage ref={HideImageComponent} src={hideImage} />
         <LeftDoor ref={LeftDoorComponent}/>
         <RightDoor ref={RightDoorComponent}/>
-        <IntroText>IntroText</IntroText>
-        <EndingText>EndingText</EndingText>
+        <IntroText ref={IntroTextComponent}>
+          <Text>IntroText</Text>
+        </IntroText>
+        <EndingText ref={EndingTextComponent}>
+          <Text>EndingText</Text>
+        </EndingText>
       </Fix>
     </Main>
   );

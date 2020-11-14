@@ -34,7 +34,6 @@ const App: FC = () => {
   useEffect(() => {
     const skillToTop = aboutMeSize[1] + remToPixel(theme.headerbarHeight);
     setTextSlideUpperSize(aboutMeSize[1] + skillsSize[1] * 2 + remToPixel(theme.headerbarHeight));
-    console.log('scrollY : ', scrollY);
     if (scrollY > 50 && !isAutoScrolled && running === false) {
       if (running === false) {
         setRunning(true);
