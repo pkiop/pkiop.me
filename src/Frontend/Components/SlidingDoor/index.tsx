@@ -96,6 +96,8 @@ const App: FC<Props> = (props) => {
   const mainComponent = useRef<HTMLDivElement>(null);
   const mainComponentSize = useComponentSize(mainComponent);
   const [scailing, setScailing] = useReducer((state) => !state, false);
+  const [introTextVisible, setIntroTextVisible] = useReducer((state) => !state, false);
+  const [endingTextVisible, setEndingTextVisible] = useReducer((state) => !state, false);
 
   const scrollTop = props.slidingDoorUpperSize;
   const scrollY = getScrollY();
@@ -105,7 +107,7 @@ const App: FC<Props> = (props) => {
   const HideImageComponent = useRef<HTMLImageElement>(null);
   const LeftDoorComponent = useRef<HTMLDivElement>(null);
   const RightDoorComponent = useRef<HTMLDivElement>(null);
-  const IntroTextComponent  = useRef<HTMLDivElement>(null);
+  const IntroTextComponent = useRef<HTMLDivElement>(null);
   const EndingTextComponent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -122,23 +124,27 @@ const App: FC<Props> = (props) => {
     const totalHeight = mainComponent.current!.scrollHeight;
     const scrollRangeMax = totalHeight - window.innerHeight;
     props.setSize([mainComponent.current!.scrollWidth, totalHeight]);
-    const progress:number = Number(((50 * (scrollY - scrollTop) / (scrollRangeMax)).toFixed(2));
-    // console.log(mainComponentSize);
-    // console.log("scrollY : ", scrollY);
-    // console.log("scrollTop : ", scrollTop);
-    // console.log("scrollMax : ", scrollRangeMax);
-    // console.log("progress : ", progress);
+    const progress:number = Number(((50 * (scrollY - scrollTop) / (scrollRangeMax)).toFixed(2)));
     if (progress >= 0) {
-      console.log("progress : ", progress);
-      if(progress >= 0 && progress <= 5) {
+      if (progress >= 0 && progress <= 5) {
+        if (!introTextVisible) {
+          setIntroTextVisible();
+        }
         const introOpacity = (5 - progress) * 0.2;
-        console.log("introOpacity = ", introOpacity);
         IntroTextComponent.current!.style.opacity = String(introOpacity);
+      } else if (introTextVisible) {
+        setIntroTextVisible();
+          IntroTextComponent.current!.style.opacity = String(0);
       }
-      if(progress >= 45 && progress <= 50) {
-        const endingOpacity = (progress - 45) * 0.2; 
-        console.log("endingOpacity = ", endingOpacity);
+      if (progress >= 45) {
+        if (!endingTextVisible) {
+          setEndingTextVisible();
+        }
+        const endingOpacity = (progress - 45) * 0.2;
         EndingTextComponent.current!.style.opacity = String(endingOpacity);
+      } else if (endingTextVisible) {
+        setIntroTextVisible();
+          EndingTextComponent.current!.style.opacity = String(0);
       }
       LeftDoorComponent.current!.style.width = `${50 - progress}%`;
       RightDoorComponent.current!.style.width = `${50 - progress}%`;
@@ -166,10 +172,10 @@ const App: FC<Props> = (props) => {
         <LeftDoor ref={LeftDoorComponent}/>
         <RightDoor ref={RightDoorComponent}/>
         <IntroText ref={IntroTextComponent}>
-          <Text>IntroText</Text> 
+          <Text>IntroText</Text>
         </IntroText>
         <EndingText ref={EndingTextComponent}>
-          <Text>EndingText</Text> 
+          <Text>EndingText</Text>
         </EndingText>
       </Fix>
     </Main>
