@@ -1,7 +1,8 @@
-import React from 'react';
-import { Fragment, FC, useState, useEffect, useRef } from 'react';
-import styled from "styled-components";
-import Text from './text';
+import React, {
+  FC, useEffect, useRef,
+} from 'react';
+
+import styled from 'styled-components';
 import frameImg from '@Images/frame.svg';
 import Img1 from '@Images/1.jpg';
 import Img2 from '@Images/2.jpg';
@@ -13,8 +14,9 @@ import { getScrollY } from '@Hooks/getScroll';
 
 import componentTotalHeight from '@Utils/componentTotalHeight';
 import {
-  Link
+  Link,
 } from 'react-router-dom';
+import Text from './text';
 
 const Main = styled.div`
   box-sizing: border-box;
@@ -22,7 +24,7 @@ const Main = styled.div`
   position: relative;
   color: blue;
   background-color: green;
-`; 
+`;
 
 interface wrapProps {
   height: number,
@@ -30,7 +32,7 @@ interface wrapProps {
 
 const Wrap = styled.div`
   max-width: 1100px; 
-  height: ${(props: wrapProps)=>props.height}px; /* 이미지 어디까지 스크롤 될 지 오프셋*/
+  height: ${(props: wrapProps) => props.height}px; /* 이미지 어디까지 스크롤 될 지 오프셋*/
   margin: 0 auto;
 `;
 
@@ -56,7 +58,7 @@ const Frame = styled.img`
 
 const FrameWrap = styled.figure`
   position:absolute; left:15px; top:89px; right:0; bottom:0; z-index:20;
-`
+`;
 
 const Fix = styled.div`
   position: sticky; 
@@ -66,7 +68,7 @@ const Fix = styled.div`
   z-index: 40; 
   float:left; 
   width:50%;
-`
+`;
 
 const ImageBlock = styled.div`
   position:relative; 
@@ -88,7 +90,7 @@ const ImageSliderWrap = styled.div`
   z-index:10; 
   width:${(props: imageSliderWrapProps) => props.width}px; 
   height:${(props: imageSliderWrapProps) => props.height}px;
-`
+`;
 
 interface imageSliderProps {
   width: number,
@@ -109,13 +111,13 @@ const ImageWrap = styled.figure`
   float:left; 
   width:${(props: imageWrapProps) => props.width}px;
   height:${(props: imageWrapProps) => props.height}px;
-`
+`;
 
 const Image = styled.img`
   width:100%;
   height:100%;
   object-fit: cover;
-`
+`;
 
 const Texts = styled.div`
   float:left; 
@@ -143,17 +145,22 @@ const App: FC<Props> = (props) => {
   const imageSliderRef = useRef<HTMLDivElement>(null);
 
   const textRefs = new Array<React.RefObject<HTMLDivElement>>();
-  for(let i=0;i<4;++i) {
+  for (let i = 0; i < 4; i += 1) {
     textRefs.push(useRef<HTMLDivElement>(null));
   }
 
   useEffect(() => {
-    if(mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
+    if (mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
       props.setSize(mainComponentSize);
     } else {
-      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'));
-      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'));
-      props.setSize([mainComponent.current!.scrollWidth, mainComponent.current!.scrollHeight + marginTop + marginBottom]);
+      const marginTop = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-top'), 10);
+      const marginBottom = parseInt(window.getComputedStyle(mainComponent.current as Element).getPropertyValue('margin-bottom'), 10);
+      props.setSize(
+        [
+          mainComponent.current!.scrollWidth,
+          mainComponent.current!.scrollHeight + marginTop + marginBottom,
+        ],
+      );
     }
     const nowPosition = scrollY - (scrollTop <= 1000 ? 99999999 : scrollTop);
     // console.log("nowPosition : ", nowPosition);
@@ -165,38 +172,42 @@ const App: FC<Props> = (props) => {
     textRefs.forEach((el) => {
       const totalHeight = componentTotalHeight(el);
       // console.log("totalHeight : ", totalHeight);
-    })
+    });
+
+    const text2TopHeight = titleHeight + componentTotalHeight(textRefs[0]);
+    const text3TopHeight = text2TopHeight + componentTotalHeight(textRefs[1]);
+    const text4TopHeight = text3TopHeight + componentTotalHeight(textRefs[2]);
     const translateOffset = sliderImageWidth;
-    if(titleHeight > nowPosition) {
-      imageSliderRef.current!.style.transform = `translateX(${translateOffset*0}px)`;
-      textRefs[0].current!.style.color= `black`;
-    } else if(titleHeight + componentTotalHeight(textRefs[0]) > nowPosition) {
-      imageSliderRef.current!.style.transform = `translateX(${translateOffset*0}px)`;
-      textRefs[0].current!.style.color= `red`;
-      textRefs[1].current!.style.color= `black`;
-    } else if(titleHeight + componentTotalHeight(textRefs[0]) + componentTotalHeight(textRefs[1]) > nowPosition) {
+    if (titleHeight > nowPosition) {
+      imageSliderRef.current!.style.transform = `translateX(${translateOffset * 0}px)`;
+      textRefs[0].current!.style.color = 'black';
+    } else if (text2TopHeight > nowPosition) {
+      imageSliderRef.current!.style.transform = `translateX(${translateOffset * 0}px)`;
+      textRefs[0].current!.style.color = 'red';
+      textRefs[1].current!.style.color = 'black';
+    } else if (text3TopHeight > nowPosition) {
       imageSliderRef.current!.style.transform = `translateX(${-1 * translateOffset}px)`;
-      textRefs[1].current!.style.color= `red`;
-      textRefs[2].current!.style.color= `black`;
-    } else if (titleHeight + componentTotalHeight(textRefs[0]) + componentTotalHeight(textRefs[1]) + componentTotalHeight(textRefs[2]) > nowPosition) {
+      textRefs[1].current!.style.color = 'red';
+      textRefs[2].current!.style.color = 'black';
+    } else if (text4TopHeight > nowPosition) {
       imageSliderRef.current!.style.transform = `translateX(${-2 * translateOffset}px)`;
-      textRefs[2].current!.style.color= `red`;
-      textRefs[3].current!.style.color= `black`;
+      textRefs[2].current!.style.color = 'red';
+      textRefs[3].current!.style.color = 'black';
     } else {
       imageSliderRef.current!.style.transform = `translateX(${-3 * translateOffset}px)`;
-      textRefs[3].current!.style.color= `red`;
+      textRefs[3].current!.style.color = 'red';
     }
   }, [scrollY]);
 
   return (
     <Main ref={mainComponent}>
-      <Wrap height={3300}> 
+      <Wrap height={3300}>
         <Title ref={titleRef}>TextSlide</Title>
         <Texts >
-          <Text refObj={textRefs[0]} mt={300} mb={0} text={"안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요"}/>
-          <Text refObj={textRefs[1]} mt={300} mb={0} text={"하잉하잉"}/>
-          <Text refObj={textRefs[2]} mt={300} mb={0} text={"안녕안녕"}/>
-          <Text refObj={textRefs[3]} mt={300} mb={500} text={"호이호이"}/>
+          <Text refObj={textRefs[0]} mt={300} mb={0} text={'안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요'}/>
+          <Text refObj={textRefs[1]} mt={300} mb={0} text={'하잉하잉'}/>
+          <Text refObj={textRefs[2]} mt={300} mb={0} text={'안녕안녕'}/>
+          <Text refObj={textRefs[3]} mt={300} mb={500} text={'호이호이'}/>
         </Texts>
         <Fix>
           <ImageBlock>
@@ -220,11 +231,11 @@ const App: FC<Props> = (props) => {
               </ImageSlider>
             </ImageSliderWrap>
           </ImageBlock>
-          
+
         </Fix>
       </Wrap>
     </Main>
-  )
+  );
 };
 
 export default App;
