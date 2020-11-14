@@ -53,30 +53,38 @@ const RightDoor = styled.div`
 
 const IntroText = styled.div`
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
+
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+
+  background-color: rgb(255,255,255);
+  opacity: 1;
   z-index: 3;
-  text-align: center;
 `;
 
 const EndingText = styled.div`
   position: absolute; 
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
 
   width: 100%;
   height: 100%;
 
-
-  background-color: rgba(100,100,100,0.5);
-  z-index: 4;
+  background-color: rgb(255,255,255);
+  opacity: 0;
+  z-index: 3;
 `;
 
 const Text = styled.div`
+  font-size: 40px;
 `;
 
 interface Props {
@@ -97,6 +105,8 @@ const App: FC<Props> = (props) => {
   const HideImageComponent = useRef<HTMLImageElement>(null);
   const LeftDoorComponent = useRef<HTMLDivElement>(null);
   const RightDoorComponent = useRef<HTMLDivElement>(null);
+  const IntroTextComponent  = useRef<HTMLDivElement>(null);
+  const EndingTextComponent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
@@ -119,6 +129,17 @@ const App: FC<Props> = (props) => {
     // console.log("scrollMax : ", scrollRangeMax);
     // console.log("progress : ", progress);
     if (progress >= 0) {
+      console.log("progress : ", progress);
+      if(progress >= 0 && progress <= 5) {
+        const introOpacity = (5 - progress) * 0.2;
+        console.log("introOpacity = ", introOpacity);
+        IntroTextComponent.current!.style.opacity = String(introOpacity);
+      }
+      if(progress >= 45 && progress <= 50) {
+        const endingOpacity = (progress - 45) * 0.2; 
+        console.log("endingOpacity = ", endingOpacity);
+        EndingTextComponent.current!.style.opacity = String(endingOpacity);
+      }
       LeftDoorComponent.current!.style.width = `${50 - progress}%`;
       RightDoorComponent.current!.style.width = `${50 - progress}%`;
       if (progress <= 25) {
@@ -144,8 +165,12 @@ const App: FC<Props> = (props) => {
         <HideImage ref={HideImageComponent} src={hideImage} />
         <LeftDoor ref={LeftDoorComponent}/>
         <RightDoor ref={RightDoorComponent}/>
-        <IntroText>IntroText</IntroText>
-        <EndingText>EndingText</EndingText>
+        <IntroText ref={IntroTextComponent}>
+          <Text>IntroText</Text> 
+        </IntroText>
+        <EndingText ref={EndingTextComponent}>
+          <Text>EndingText</Text> 
+        </EndingText>
       </Fix>
     </Main>
   );
