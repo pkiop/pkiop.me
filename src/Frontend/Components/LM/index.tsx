@@ -3,10 +3,10 @@ import React, {
 } from 'react';
 
 interface Props {
-  subTitle: string,
+  subTitle?: string,
 }
 
-const App: FC<Props> = ({ subTitle }) => (
+const App: FC<Props> = ({ subTitle = '깔깔깔' }) => (
 
   <>
     <h1>LM</h1>
