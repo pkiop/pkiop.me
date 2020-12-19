@@ -1,10 +1,9 @@
 import React from 'react';
+import EntryApp from 'components/App';
 
 function App() {
   return (
-    <div className="App">
-      안녕하세요
-    </div>
+    <EntryApp />
   );
 }
 
