@@ -1,4 +1,4 @@
-import { theme } from '@Styles/theme';
+import { theme } from 'styles/theme';
 
 export const dummy = 1;
 

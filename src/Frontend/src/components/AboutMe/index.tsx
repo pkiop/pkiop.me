@@ -3,11 +3,8 @@ import React, {
 } from 'react';
 
 import styled from 'styled-components';
-import profile from '@Images/profile.png';
-import { useComponentSize } from '@Hooks/ElementSize';
-import {
-  Link,
-} from 'react-router-dom';
+import profile from 'images/profile.png';
+import { useComponentSize } from 'hooks/ElementSize';
 
 const Main = styled.div`
   display: flex;

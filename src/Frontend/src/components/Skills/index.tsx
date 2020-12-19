@@ -3,8 +3,8 @@ import React, {
 } from 'react';
 
 import styled from 'styled-components';
-import coverImg from '@Images/cover.jpg';
-import { useComponentSize } from '@Hooks/ElementSize';
+import coverImg from 'images/cover.jpg';
+import { useComponentSize } from 'hooks/ElementSize';
 
 const Main = styled.div`
   height: ${window.innerHeight}px;

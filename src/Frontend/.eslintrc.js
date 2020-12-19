@@ -27,12 +27,21 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'module',
-    // project: `${path.resolve(__dirname, 'tsconfig.json')}`,
   },
   rules: {
     indent: [
       'error',
       2,
+    ],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
     ],
     'no-unused-vars': 1,
     'no-use-before-define': 1,

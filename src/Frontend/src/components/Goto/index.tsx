@@ -1,14 +1,11 @@
 /* eslint-disable no-param-reassign */
 import React, {
-  Fragment, FC, useState, useEffect, useRef,
+  FC, useEffect, useRef,
 } from 'react';
 
 import styled, { keyframes } from 'styled-components';
-import { useComponentSize } from '@Hooks/ElementSize';
-import circleSvg from '@Images/gotocircle.svg';
-import {
-  Link,
-} from 'react-router-dom';
+import { useComponentSize } from 'hooks/ElementSize';
+import circleSvg from 'images/gotocircle.svg';
 
 const textMask = keyframes`
     0%{

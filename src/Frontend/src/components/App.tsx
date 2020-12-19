@@ -6,16 +6,16 @@ import {
 } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import HeaderBar from '@Components/HeaderBar';
-import Portfolio from '@Components/Portfolio';
-import Home from '@Components/Home';
-import About from '@Components/About';
-import Post from '@Components/PostComponent';
-import TIL from '@Components/TIL';
-import LM from '@Components/LM';
+import HeaderBar from 'components/HeaderBar';
+import Portfolio from 'components/Portfolio';
+import Home from 'components/Home';
+import About from 'components/About';
+import Post from 'components/PostComponent';
+import TIL from 'components/TIL';
+import LM from 'components/LM';
 
-import { theme } from '@Styles/theme';
-import { GlobalStyle } from '@Styles/global-styles';
+import { theme } from 'styles/theme';
+import { GlobalStyle } from 'styles/global-styles';
 
 const App: FC = () => (
   <BrowserRouter>
