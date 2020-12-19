@@ -1,12 +1,12 @@
 import React, {
   useEffect, FC, useState,
 } from 'react';
-import logo from 'images/logo.png';
+import logo from 'public/images/logo.png';
 
 import styled from 'styled-components';
 import MenuLinkBtn from 'components/MenuLinkBtn';
 import HeaderBarMenuDropdown from 'components/HeaderBar-MenuDropdown';
-import hambugBtn from 'images/hamburg.svg';
+import hambugBtn from 'public/images/hamburg.svg';
 import { theme } from 'styles/theme';
 import { remToPixel } from 'utils/remToPixel';
 import { useWindowSize } from 'hooks/ElementSize';
