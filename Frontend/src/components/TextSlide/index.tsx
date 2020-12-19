@@ -3,11 +3,11 @@ import React, {
 } from 'react';
 
 import styled from 'styled-components';
-import frameImg from 'images/frame.svg';
-import Img1 from 'images/1.jpg';
-import Img2 from 'images/2.jpg';
-import Img3 from 'images/3.jpg';
-import Img4 from 'images/4.jpg';
+import frameImg from 'public/images/frame.svg';
+import Img1 from 'public/images/1.jpg';
+import Img2 from 'public/images/2.jpg';
+import Img3 from 'public/images/3.jpg';
+import Img4 from 'public/images/4.jpg';
 
 import { useComponentSize } from 'hooks/ElementSize';
 import { getScrollY } from 'hooks/getScroll';
@@ -141,7 +141,8 @@ const App: FC<Props> = (props) => {
   const textsRef = useRef<HTMLDivElement>(null);
   const imageSliderRef = useRef<HTMLDivElement>(null);
 
-  const textRefs = new Array<React.RefObject<HTMLDivElement>>();
+  // eslint-disable-next-line no-array-constructor
+  const textRefs = Array<React.RefObject<HTMLDivElement>>();
   for (let i = 0; i < 4; i += 1) {
     textRefs.push(useRef<HTMLDivElement>(null));
   }

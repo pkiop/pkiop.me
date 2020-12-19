@@ -5,7 +5,7 @@ import React, {
 
 import styled, { keyframes } from 'styled-components';
 import { useComponentSize } from 'hooks/ElementSize';
-import circleSvg from 'images/gotocircle.svg';
+import circleSvg from 'public/images/gotocircle.svg';
 
 const textMask = keyframes`
     0%{
