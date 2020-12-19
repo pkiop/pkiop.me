@@ -1,7 +1,7 @@
 import React, {
   FC,
 } from 'react';
-import HomeImage from '@Images/homeImage.jpg';
+import HomeImage from 'images/homeImage.jpg';
 
 import styled from 'styled-components';
 

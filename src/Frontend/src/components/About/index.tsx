@@ -4,14 +4,14 @@ import React, {
 
 import styled from 'styled-components';
 
-import AboutMe from '@Components/AboutMe';
-import Skills from '@Components/Skills';
-import Goto from '@Components/Goto';
-import TextSlide from '@Components/TextSlide';
-import SlidingDoor from '@Components/SlidingDoor';
-import { getScrollY } from '@Hooks/getScroll';
-import { remToPixel } from '@Utils/remToPixel';
-import { theme } from '@Styles/theme';
+import AboutMe from 'components/AboutMe';
+import Skills from 'components/Skills';
+import Goto from 'components/Goto';
+import TextSlide from 'components/TextSlide';
+import SlidingDoor from 'components/SlidingDoor';
+import { getScrollY } from 'hooks/getScroll';
+import { remToPixel } from 'utils/remToPixel';
+import { theme } from 'styles/theme';
 
 const Main = styled.div`
 `;
@@ -29,7 +29,7 @@ const App: FC = () => {
   const [isAnimatedGoto, setIsAnimatedGoto] = useState<boolean>(false);
   const mainComponent = useRef<HTMLDivElement>(null);
   const scrollY = getScrollY();
-  const [running, setRunning] = useState<boolean>(true); // true로 하면 스크롤 반응 안함
+  const [running, setRunning] = useState<boolean>(false); // true로 하면 스크롤 반응 안함
 
   useEffect(() => {
     const skillToTop = aboutMeSize[1] + remToPixel(theme.headerbarHeight);

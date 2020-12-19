@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import styled from 'styled-components';
-import MenuLinkBtn from '@Components/MenuLinkBtn';
+import MenuLinkBtn from 'components/MenuLinkBtn';
 
 const Main = styled.div<{clicked: boolean}>`
   position: absolute;

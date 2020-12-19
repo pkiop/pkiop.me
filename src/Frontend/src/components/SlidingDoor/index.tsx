@@ -3,9 +3,9 @@ import React, {
 } from 'react';
 
 import styled from 'styled-components';
-import hideImage from '@Images/hideImage.jpg';
-import { useComponentSize } from '@Hooks/ElementSize';
-import { getScrollY } from '@Hooks/getScroll';
+import hideImage from 'images/hideImage.jpg';
+import { useComponentSize } from 'hooks/ElementSize';
+import { getScrollY } from 'hooks/getScroll';
 
 const Main = styled.div`
   position: relative;

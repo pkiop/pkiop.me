@@ -3,19 +3,16 @@ import React, {
 } from 'react';
 
 import styled from 'styled-components';
-import frameImg from '@Images/frame.svg';
-import Img1 from '@Images/1.jpg';
-import Img2 from '@Images/2.jpg';
-import Img3 from '@Images/3.jpg';
-import Img4 from '@Images/4.jpg';
+import frameImg from 'images/frame.svg';
+import Img1 from 'images/1.jpg';
+import Img2 from 'images/2.jpg';
+import Img3 from 'images/3.jpg';
+import Img4 from 'images/4.jpg';
 
-import { useComponentSize } from '@Hooks/ElementSize';
-import { getScrollY } from '@Hooks/getScroll';
+import { useComponentSize } from 'hooks/ElementSize';
+import { getScrollY } from 'hooks/getScroll';
 
-import componentTotalHeight from '@Utils/componentTotalHeight';
-import {
-  Link,
-} from 'react-router-dom';
+import componentTotalHeight from 'utils/componentTotalHeight';
 import Text from './text';
 
 const Main = styled.div`

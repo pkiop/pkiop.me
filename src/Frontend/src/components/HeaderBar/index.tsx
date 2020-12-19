@@ -1,15 +1,15 @@
 import React, {
-  useEffect, useLayoutEffect, FC, useState,
+  useEffect, FC, useState,
 } from 'react';
-import logo from '@Images/logo.png';
+import logo from 'images/logo.png';
 
 import styled from 'styled-components';
-import MenuLinkBtn from '@Components/MenuLinkBtn';
-import HeaderBarMenuDropdown from '@Components/HeaderBar-MenuDropdown';
-import hambugBtn from '@Images/hamburg.svg';
-import { theme } from '@Styles/theme';
-import { remToPixel } from '@Utils/remToPixel';
-import { useWindowSize } from '@Hooks/ElementSize';
+import MenuLinkBtn from 'components/MenuLinkBtn';
+import HeaderBarMenuDropdown from 'components/HeaderBar-MenuDropdown';
+import hambugBtn from 'images/hamburg.svg';
+import { theme } from 'styles/theme';
+import { remToPixel } from 'utils/remToPixel';
+import { useWindowSize } from 'hooks/ElementSize';
 
 const Logo = styled.img`
   width: ${(props) => props.theme.headerbarContentHeight};
