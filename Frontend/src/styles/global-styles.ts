@@ -1,11 +1,16 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-export const dummp = 1;
 export const GlobalStyle = createGlobalStyle`
   ${reset}
+  @font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'NanumSquareRound';
     box-sizing: border-box;
   }
   body::-webkit-scrollbar {
@@ -15,4 +20,7 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
+
 `;
+
+export default {};

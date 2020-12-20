@@ -1,40 +1,37 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
-const babelConfig = require('./babel.config.js');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  target: 'node',
+  name: 'ts-back-setting',
+  mode: 'development', // "production" | "development" | "none"
+  devtool: 'eval', // source-map hidden-source-map
   resolve: {
-    extensions: ['.js', '.jsx','.ts','.tsx','.json'],
-    alias: {
-      '@Controller': path.resolve(__dirname, 'controller'),
-      '@Router': path.resolve(__dirname, 'router')
-    }
+    modules: ['node_modules'],
+    extensions: ['.ts', 'json', '.js'],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: 'tsconfig.json',
+        baseUrl: './src',
+      }),
+    ],
   },
-  entry: [
-    path.resolve(__dirname, 'app.js'),
-  ],
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'app.js',
+  entry: {
+    index: ['./src/app.ts'],
   },
-  externals: [
-    nodeExternals(),
-  ],
-  plugins: [
-    new CleanWebpackPlugin(),
-  ],
   module: {
     rules: [
       {
-        test: /\.m?js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: babelConfig,
-        },
+        test: /\.ts$/,
+        use: ['ts-loader'],
+        exclude: ['/node_modules'],
       },
     ],
   },
+  optimization: {},
+  output: {
+    path: path.join(__dirname, './dist'),
+    filename: '[name].js',
+  },
+  target: 'node',
+
 };
