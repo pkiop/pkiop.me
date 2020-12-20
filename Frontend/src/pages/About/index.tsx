@@ -48,9 +48,9 @@ function App() {
       <PleaseScroll />
       <SlidingDoor setSize={setSlidingDoorSize} slidingDoorUpperSize={slidingDoorUpperSize}/>
       <AboutMe setSize={setAboutMeSize}/>
-      <Skills setSize={setSkillsSize}/>
+      {/* <Skills setSize={setSkillsSize}/>
       <Goto setSize={setGotoSize} isAnimated={isAnimatedGoto}/>
-      <TextSlide setSize={setTextSlideSize} textSlideUpperSize={textSlideUpperSize} />
+      <TextSlide setSize={setTextSlideSize} textSlideUpperSize={textSlideUpperSize} /> */}
     </S.Main>
   );
 }

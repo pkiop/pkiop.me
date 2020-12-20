@@ -18,7 +18,6 @@ function App(props: Props) {
   const mainComponentSize = useComponentSize(mainComponent);
   const [scailing, setScailing] = useReducer((state) => !state, false);
   const [introTextVisible, setIntroTextVisible] = useReducer((state) => !state, false);
-  const [endingTextVisible, setEndingTextVisible] = useReducer((state) => !state, false);
   const [openResumeOrMoreInfo, setOpenResumeOrMoreInfo] = useState(false);
 
   const scrollTop = props.slidingDoorUpperSize;
@@ -30,7 +29,7 @@ function App(props: Props) {
   const LeftDoorComponent = useRef<HTMLDivElement>(null);
   const RightDoorComponent = useRef<HTMLDivElement>(null);
   const IntroTextComponent = useRef<HTMLDivElement>(null);
-  const EndingTextComponent = useRef<HTMLDivElement>(null);
+  const ResumeOrMoreInfoComponent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (mainComponentSize[0] !== 0 || mainComponentSize[1] !== 0) {
@@ -68,16 +67,24 @@ function App(props: Props) {
       LeftDoorComponent.current!.style.width = `${50 - progress}%`;
       RightDoorComponent.current!.style.width = `${50 - progress}%`;
 
-      if (progress <= 55 && progress >= 41 && !openResumeOrMoreInfo) {
+      if (progress <= 60 && progress >= 41 && !openResumeOrMoreInfo) {
         setOpenResumeOrMoreInfo(true);
+        if (ResumeOrMoreInfoComponent.current) {
+          ResumeOrMoreInfoComponent.current.classList.add('active');
+        }
       }
-      if (progress > 55 && openResumeOrMoreInfo) {
+      if (progress > 60 && openResumeOrMoreInfo) {
         setOpenResumeOrMoreInfo(false);
+        if (ResumeOrMoreInfoComponent.current) {
+          ResumeOrMoreInfoComponent.current.classList.remove('active');
+        }
       }
       if (progress < 41 && openResumeOrMoreInfo) {
         setOpenResumeOrMoreInfo(false);
+        if (ResumeOrMoreInfoComponent.current) {
+          ResumeOrMoreInfoComponent.current.classList.remove('active');
+        }
       }
-      console.log(openResumeOrMoreInfo);
 
       if (progress >= 51) {
         LeftDoorComponent.current!.style.width = `${0}%`;
@@ -100,8 +107,6 @@ function App(props: Props) {
       LeftDoorComponent.current!.style.width = '50%';
       RightDoorComponent.current!.style.width = '50%';
     }
-    console.log('scrolly : ', scrollY);
-    console.log('progress : ', progress);
   }, [mainComponentSize, scrollY]);
 
   return (
@@ -109,7 +114,7 @@ function App(props: Props) {
       <S.Fix>
         <S.ImageResumeSelectWrap>
           <S.HideImage ref={HideImageComponent} src={hideImage} />
-          {openResumeOrMoreInfo && <ResumeOrMoreInfo />}
+          <ResumeOrMoreInfo refs={ResumeOrMoreInfoComponent}/>
         </S.ImageResumeSelectWrap>
         <S.LeftDoor ref={LeftDoorComponent}/>
         <S.RightDoor ref={RightDoorComponent}/>

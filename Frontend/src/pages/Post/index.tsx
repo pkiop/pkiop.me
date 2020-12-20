@@ -4,7 +4,7 @@ import React, {
 
 const App: FC = () => (
   <>
-    <h1>Post</h1>
+    <h1>구현중</h1>
   </>
 );
 
