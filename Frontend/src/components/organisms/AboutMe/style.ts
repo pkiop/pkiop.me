@@ -6,7 +6,7 @@ export const Main = styled.div`
   flex-direction: column;
   align-items: center;
   height: 1000px;
-  margin: 1rm 8rem;
+  margin: 1rem 8rem;
 `;
 
 export const Title = styled.div`
