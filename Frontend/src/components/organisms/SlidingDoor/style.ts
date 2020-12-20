@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
+  width: 100%;
   position: relative;
   display:flex;
   height: ${window.innerHeight * 3}px;
@@ -25,6 +26,7 @@ export const HideImage = styled.img`
 `;
 
 export const ImageResumeSelectWrap = styled.div`
+  width: 100%;
   position: absolute;
   top:0;
 `;
