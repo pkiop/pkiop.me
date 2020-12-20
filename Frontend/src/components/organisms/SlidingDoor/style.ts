@@ -4,8 +4,7 @@ export const Main = styled.div`
   position: relative;
   display:flex;
   height: ${window.innerHeight * 3}px;
-  background: rgb(2,0,36);
-  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  background-color: ${({ theme }) => theme.white};
 `;
 
 export const Fix = styled.div`
@@ -21,10 +20,14 @@ export const Fix = styled.div`
 `;
 
 export const HideImage = styled.img`
-  position: absolute;
+  width: 100%;
   transform: scale(1.5);
-  top:0;
 `;
+
+export const ImageResumeSelectWrap = styled.div`
+  position: absolute;
+  top:0;
+  `;
 
 export const LeftDoor = styled.div`
   position: absolute;

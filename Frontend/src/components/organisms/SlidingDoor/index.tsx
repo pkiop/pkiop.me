@@ -1,10 +1,11 @@
 import React, {
-  useEffect, useRef, useReducer,
+  useEffect, useRef, useReducer, useState,
 } from 'react';
 
-import hideImage from 'public/images/hideImage.jpg';
+import hideImage from 'public/images/self.png';
 import { useComponentSize } from 'hooks/ElementSize';
 import { getScrollY } from 'hooks/getScroll';
+import ResumeOrMoreInfo from 'components/organisms/ResumeOrMoreInfo';
 import * as S from './style';
 
 interface Props {
@@ -18,6 +19,7 @@ function App(props: Props) {
   const [scailing, setScailing] = useReducer((state) => !state, false);
   const [introTextVisible, setIntroTextVisible] = useReducer((state) => !state, false);
   const [endingTextVisible, setEndingTextVisible] = useReducer((state) => !state, false);
+  const [openResumeOrMoreInfo, setOpenResumeOrMoreInfo] = useState(false);
 
   const scrollTop = props.slidingDoorUpperSize;
   const scrollY = getScrollY();
@@ -65,16 +67,18 @@ function App(props: Props) {
       }
       LeftDoorComponent.current!.style.width = `${50 - progress}%`;
       RightDoorComponent.current!.style.width = `${50 - progress}%`;
-      if (progress >= 40) {
-        if (!endingTextVisible) {
-          setEndingTextVisible();
-        }
-        const endingOpacity = (progress - 40) * 0.1;
-        EndingTextComponent.current!.style.opacity = String(endingOpacity);
-      } else if (endingTextVisible) {
-        setIntroTextVisible();
-        EndingTextComponent.current!.style.opacity = String(0);
+
+      if (progress <= 55 && progress >= 41 && !openResumeOrMoreInfo) {
+        setOpenResumeOrMoreInfo(true);
       }
+      if (progress > 55 && openResumeOrMoreInfo) {
+        setOpenResumeOrMoreInfo(false);
+      }
+      if (progress < 41 && openResumeOrMoreInfo) {
+        setOpenResumeOrMoreInfo(false);
+      }
+      console.log(openResumeOrMoreInfo);
+
       if (progress >= 51) {
         LeftDoorComponent.current!.style.width = `${0}%`;
         RightDoorComponent.current!.style.width = `${0}%`;
@@ -103,15 +107,15 @@ function App(props: Props) {
   return (
     <S.Main ref={mainComponent}>
       <S.Fix>
-        <S.HideImage ref={HideImageComponent} src={hideImage} />
+        <S.ImageResumeSelectWrap>
+          <S.HideImage ref={HideImageComponent} src={hideImage} />
+          {openResumeOrMoreInfo && <ResumeOrMoreInfo />}
+        </S.ImageResumeSelectWrap>
         <S.LeftDoor ref={LeftDoorComponent}/>
         <S.RightDoor ref={RightDoorComponent}/>
         <S.IntroText ref={IntroTextComponent}>
-          <S.Text>IntroText</S.Text>
+          <S.Text>한장 요약</S.Text>
         </S.IntroText>
-        <S.EndingText ref={EndingTextComponent}>
-          <S.Text>EndingText</S.Text>
-        </S.EndingText>
       </S.Fix>
     </S.Main>
   );
