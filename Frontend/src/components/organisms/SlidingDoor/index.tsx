@@ -67,13 +67,13 @@ function App(props: Props) {
       LeftDoorComponent.current!.style.width = `${50 - progress}%`;
       RightDoorComponent.current!.style.width = `${50 - progress}%`;
 
-      if (progress <= 55 && progress >= 41 && !openResumeOrMoreInfo) {
+      if (progress <= 60 && progress >= 41 && !openResumeOrMoreInfo) {
         setOpenResumeOrMoreInfo(true);
         if (ResumeOrMoreInfoComponent.current) {
           ResumeOrMoreInfoComponent.current.classList.add('active');
         }
       }
-      if (progress > 55 && openResumeOrMoreInfo) {
+      if (progress > 60 && openResumeOrMoreInfo) {
         setOpenResumeOrMoreInfo(false);
         if (ResumeOrMoreInfoComponent.current) {
           ResumeOrMoreInfoComponent.current.classList.remove('active');
