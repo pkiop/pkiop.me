@@ -9,9 +9,11 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
+
   body {
     font-family: 'NanumSquareRound';
     box-sizing: border-box;
+
   }
   body::-webkit-scrollbar {
     display: none;
