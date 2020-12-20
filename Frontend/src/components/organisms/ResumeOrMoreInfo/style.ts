@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
+  display: flex;
   bottom: 1rem;
-  display:flex;
   justify-content: space-between; 
   height: 3rem;
   width: 100%;
+  opacity: 0%;
+  transition: all 0.6s;
+  &.active {
+    opacity: 100%;
+  }
 `;
 
 export const TextBox = styled.div`
+  z-index: 10;
   &:first-child {
     padding-left: 13%;
   }
