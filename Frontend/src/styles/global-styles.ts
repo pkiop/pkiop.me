@@ -9,9 +9,11 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
+
   body {
     font-family: 'NanumSquareRound';
     box-sizing: border-box;
+
   }
   body::-webkit-scrollbar {
     display: none;
@@ -20,7 +22,6 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
-
 `;
 
 export default {};

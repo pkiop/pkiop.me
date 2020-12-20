@@ -1,103 +1,25 @@
 import React, {
-  FC, useEffect, useRef, useReducer,
+  useEffect, useRef, useReducer, useState,
 } from 'react';
 
-import styled from 'styled-components';
-import hideImage from 'public/images/hideImage.jpg';
+import hideImage from 'public/images/self.png';
 import { useComponentSize } from 'hooks/ElementSize';
 import { getScrollY } from 'hooks/getScroll';
-
-const Main = styled.div`
-  position: relative;
-  display:flex;
-  height: ${window.innerHeight * 3}px;
-  background: rgb(2,0,36);
-  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
-`;
-
-const Fix = styled.div`
-  overflow: hidden;
-  position: sticky; 
-  position: -webkit-sticky; 
-  top: 0;
-  left: 0; 
-  z-index: 40; 
-  float:left; 
-  width:100%;
-  height:${window.innerHeight}px;
-`;
-
-const HideImage = styled.img`
-  position: absolute;
-  transform: scale(1.5);
-  top:0;
-`;
-
-const LeftDoor = styled.div`
-  position: absolute;
-  left: 0;
-  width: 50%;
-  height:100%;
-  background-color: rgba(100,100,100,1);
-  z-index: 5;
-`;
-
-const RightDoor = styled.div`
-  position: absolute;
-  right: 0;
-  width: 50%;
-  height:100%;
-  background-color: rgba(0,0,0,1);
-  z-index: 5;
-`;
-
-const IntroText = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
-  background-color: rgb(255,255,255);
-  opacity: 1;
-  z-index: 3;
-`;
-
-const EndingText = styled.div`
-  position: absolute; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
-  background-color: rgb(255,255,255);
-  opacity: 0;
-  z-index: 3;
-`;
-
-const Text = styled.div`
-  font-size: 40px;
-`;
+import ResumeOrMoreInfo from 'components/organisms/ResumeOrMoreInfo';
+import * as S from './style';
 
 interface Props {
   setSize: React.Dispatch<React.SetStateAction<number[]>>,
   slidingDoorUpperSize: number,
 }
 
-const App: FC<Props> = (props) => {
+function App(props: Props) {
   const mainComponent = useRef<HTMLDivElement>(null);
   const mainComponentSize = useComponentSize(mainComponent);
   const [scailing, setScailing] = useReducer((state) => !state, false);
   const [introTextVisible, setIntroTextVisible] = useReducer((state) => !state, false);
   const [endingTextVisible, setEndingTextVisible] = useReducer((state) => !state, false);
+  const [openResumeOrMoreInfo, setOpenResumeOrMoreInfo] = useState(false);
 
   const scrollTop = props.slidingDoorUpperSize;
   const scrollY = getScrollY();
@@ -125,6 +47,7 @@ const App: FC<Props> = (props) => {
     const scrollRangeMax = totalHeight - window.innerHeight;
     props.setSize([mainComponent.current!.scrollWidth, totalHeight]);
     const progress:number = Number(((50 * (scrollY - scrollTop)) / scrollRangeMax).toFixed(2));
+    console.log(scrollTop, scrollRangeMax);
     if (progress >= 0) {
       if (progress >= 0 && progress < 5) {
         if (!introTextVisible) {
@@ -142,18 +65,25 @@ const App: FC<Props> = (props) => {
         setIntroTextVisible();
         IntroTextComponent.current!.style.opacity = String(0);
       }
-      if (progress >= 40) {
-        if (!endingTextVisible) {
-          setEndingTextVisible();
-        }
-        const endingOpacity = (progress - 40) * 0.1;
-        EndingTextComponent.current!.style.opacity = String(endingOpacity);
-      } else if (endingTextVisible) {
-        setIntroTextVisible();
-          EndingTextComponent.current!.style.opacity = String(0);
-      }
       LeftDoorComponent.current!.style.width = `${50 - progress}%`;
       RightDoorComponent.current!.style.width = `${50 - progress}%`;
+
+      if (progress <= 55 && progress >= 41 && !openResumeOrMoreInfo) {
+        setOpenResumeOrMoreInfo(true);
+      }
+      if (progress > 55 && openResumeOrMoreInfo) {
+        setOpenResumeOrMoreInfo(false);
+      }
+      if (progress < 41 && openResumeOrMoreInfo) {
+        setOpenResumeOrMoreInfo(false);
+      }
+      console.log(openResumeOrMoreInfo);
+
+      if (progress >= 51) {
+        LeftDoorComponent.current!.style.width = `${0}%`;
+        RightDoorComponent.current!.style.width = `${0}%`;
+      }
+
       if (progress <= 25) {
         // eslint-disable-next-line no-unused-expressions
         !scailing && setScailing();
@@ -170,23 +100,25 @@ const App: FC<Props> = (props) => {
       LeftDoorComponent.current!.style.width = '50%';
       RightDoorComponent.current!.style.width = '50%';
     }
+    console.log('scrolly : ', scrollY);
+    console.log('progress : ', progress);
   }, [mainComponentSize, scrollY]);
 
   return (
-    <Main ref={mainComponent}>
-      <Fix>
-        <HideImage ref={HideImageComponent} src={hideImage} />
-        <LeftDoor ref={LeftDoorComponent}/>
-        <RightDoor ref={RightDoorComponent}/>
-        <IntroText ref={IntroTextComponent}>
-          <Text>IntroText</Text>
-        </IntroText>
-        <EndingText ref={EndingTextComponent}>
-          <Text>EndingText</Text>
-        </EndingText>
-      </Fix>
-    </Main>
+    <S.Main ref={mainComponent}>
+      <S.Fix>
+        <S.ImageResumeSelectWrap>
+          <S.HideImage ref={HideImageComponent} src={hideImage} />
+          {openResumeOrMoreInfo && <ResumeOrMoreInfo />}
+        </S.ImageResumeSelectWrap>
+        <S.LeftDoor ref={LeftDoorComponent}/>
+        <S.RightDoor ref={RightDoorComponent}/>
+        <S.IntroText ref={IntroTextComponent}>
+          <S.Text>한장 요약</S.Text>
+        </S.IntroText>
+      </S.Fix>
+    </S.Main>
   );
-};
+}
 
 export default App;
