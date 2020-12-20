@@ -1,9 +1,51 @@
 import React from 'react';
-import EntryApp from 'components/App';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+
+import HeaderBar from 'components/organisms/HeaderBar';
+import Portfolio from 'pages/Portfolio';
+import About from 'pages/About';
+import Post from 'pages/PostComponent';
+import TIL from 'pages/TIL';
+import LM from 'pages/LM';
+
+import { theme } from 'styles/theme';
+import { GlobalStyle } from 'styles/global-styles';
 
 function App() {
   return (
-    <EntryApp />
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Switch>
+          <Route exact path="/">
+            <HeaderBar />
+            <About />
+          </Route>
+          <Route path="/portfolio">
+            <HeaderBar />
+            <Portfolio />
+          </Route>
+          <Route path="/post">
+            <HeaderBar />
+            <Post />
+          </Route>
+          <Route path="/TIL">
+            <HeaderBar />
+            <TIL />
+          </Route>
+          <Route path="/LM">
+            <HeaderBar />
+            <LM />
+          </Route>
+        </Switch>
+      </ThemeProvider>
+
+    </BrowserRouter>
   );
 }
 

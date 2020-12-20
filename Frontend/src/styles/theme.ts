@@ -6,6 +6,9 @@ export const theme = {
   subColor: '#83BFCD',
   smallWidth: '48rem',
 
-  headerbarHeight: '3.875rem',
-  headerbarContentHeight: '3.75rem',
+  headerbarHeight: 3.875,
+  headerbarContentHeight: 3.75,
+  pleaseSlideHeight: 5,
+
+  black: '#000000',
 };

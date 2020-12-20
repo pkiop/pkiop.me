@@ -1,59 +1,22 @@
 import React, {
-  FC, useState, useEffect, useRef,
+  useState, useEffect, useRef,
 } from 'react';
 
-import styled from 'styled-components';
 import profile from 'public/images/profile.png';
 import { useComponentSize } from 'hooks/ElementSize';
 import axios from 'axios';
-
-const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 1000px;
-  margin: 160px 200px;
-`;
-
-const Title = styled.div`
-  width: 160px;
-  height: 35px;
-  font-size: 35px;
-  font-weight: 300;
-  text-align: center;
-  margin: 25px;
-`;
-
-const Line = styled.div`
-  width: 80px;
-  height: 5px;
-  border-radius: 2px;
-  background-color: ${(props) => props.theme.subColor};
-  margin-bottom: 50px;
-`;
-
-const Picture = styled.img`
-  width:200px;
-  height:200px;
-  border-radius: 100px;
-  margin: 30px;
-`;
-
-const MainText = styled.div`
-  font-size: 15px;
-`;
+import * as S from './style';
 
 const getText = async () => {
   const fetchData = await axios.get('http://localhost:3000/api/aboutme');
   const res = fetchData;
-  console.log('res : ', res);
   return res;
 };
 
 interface Props {
   setSize: React.Dispatch<React.SetStateAction<number[]>>
 }
-const App: FC<Props> = (props) => {
+function App(props: Props) {
   const [mt, setMt] = useState('');
   const mainComponent = useRef<HTMLDivElement>(null);
   const mainComponentSize = useComponentSize(mainComponent);
@@ -73,13 +36,13 @@ const App: FC<Props> = (props) => {
   }, [mainComponentSize, mainComponent.current]);
 
   return (
-    <Main ref={mainComponent}>
-      <Title>About Me</Title>
-      <Line />
-      <Picture src={profile}/>
-      <MainText>{mt}</MainText>
-    </Main>
+    <S.Main ref={mainComponent}>
+      <S.Title>About Me</S.Title>
+      <S.Line />
+      <S.Picture src={profile}/>
+      <S.MainText>{mt}</S.MainText>
+    </S.Main>
   );
-};
+}
 
 export default App;
