@@ -5,6 +5,7 @@ import React, {
 import styled from 'styled-components';
 import profile from 'public/images/profile.png';
 import { useComponentSize } from 'hooks/ElementSize';
+import axios from 'axios';
 
 const Main = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ const Title = styled.div`
   text-align: center;
   margin: 25px;
 `;
+
 const Line = styled.div`
   width: 80px;
   height: 5px;
@@ -42,8 +44,9 @@ const MainText = styled.div`
 `;
 
 const getText = async () => {
-  const fetchData = await fetch('http://localhost:3000/api/aboutme');
-  const res = await fetchData.json();
+  const fetchData = await axios.get('http://localhost:3000/api/aboutme');
+  const res = fetchData;
+  console.log('res : ', res);
   return res;
 };
 
@@ -66,7 +69,7 @@ const App: FC<Props> = (props) => {
         mainComponent.current!.scrollHeight + marginTop + marginBottom,
       ]);
     }
-    getText().then((res) => setMt(res.mainText));
+    getText().then((res) => setMt(res.data));
   }, [mainComponentSize, mainComponent.current]);
 
   return (
