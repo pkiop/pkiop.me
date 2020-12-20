@@ -27,7 +27,7 @@ export const HideImage = styled.img`
 export const ImageResumeSelectWrap = styled.div`
   position: absolute;
   top:0;
-  `;
+`;
 
 export const LeftDoor = styled.div`
   position: absolute;
