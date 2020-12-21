@@ -11,4 +11,5 @@ export default {
 
   black: '#000000',
   white: '#ffffff',
+  subTextColor: '#b9b9b9',
 };

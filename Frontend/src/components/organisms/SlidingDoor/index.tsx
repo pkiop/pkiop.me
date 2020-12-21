@@ -46,7 +46,6 @@ function App(props: Props) {
     const scrollRangeMax = totalHeight - window.innerHeight;
     props.setSize([mainComponent.current!.scrollWidth, totalHeight]);
     const progress:number = Number(((50 * (scrollY - scrollTop)) / scrollRangeMax).toFixed(2));
-    console.log(scrollTop, scrollRangeMax);
     if (progress >= 0) {
       if (progress >= 0 && progress < 5) {
         if (!introTextVisible) {
