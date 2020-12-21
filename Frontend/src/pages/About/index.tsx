@@ -9,7 +9,7 @@ import TextSlide from 'components/organisms/TextSlide';
 import SlidingDoor from 'components/organisms/SlidingDoor';
 import { getScrollY } from 'hooks/getScroll';
 import { remToPixel } from 'utils/remToPixel';
-import { theme } from 'styles/theme';
+import theme from 'styles/theme';
 import PleaseScroll from 'components/organisms/PleaseScroll';
 import * as S from './style';
 

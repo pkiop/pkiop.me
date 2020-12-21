@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-export const GlobalStyle = createGlobalStyle`
+export default createGlobalStyle`
   ${reset}
   @font-face {
     font-family: 'NanumSquareRound';
@@ -23,5 +23,3 @@ export const GlobalStyle = createGlobalStyle`
     color: inherit;
   }
 `;
-
-export default {};

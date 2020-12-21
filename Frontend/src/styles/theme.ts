@@ -1,5 +1,4 @@
-export const dummy = 1;
-export const theme = {
+export default {
   mainFontSize: 16,
 
   mainColor: '#2E4B73',
