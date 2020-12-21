@@ -6,7 +6,7 @@ import logo from 'public/images/logo.jpeg';
 import MenuLinkBtn from 'components/molecules/MenuLinkBtn';
 import HeaderBarMenuDropdown from 'components/organisms/HeaderBar-MenuDropdown';
 import hambugBtn from 'public/images/hamburg.svg';
-import { theme } from 'styles/theme';
+import theme from 'styles/theme';
 import { remToPixel } from 'utils/remToPixel';
 import { useWindowSize } from 'hooks/ElementSize';
 import * as S from './style';
