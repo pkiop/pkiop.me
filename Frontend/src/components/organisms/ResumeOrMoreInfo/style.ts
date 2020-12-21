@@ -11,8 +11,6 @@ export const Main = styled.div`
   &.active {
     opacity: 100%;
   }
-
-
 `;
 
 export const TextBox = styled.div`
@@ -29,19 +27,5 @@ export const TextBox = styled.div`
   }
   @media only screen and (max-width: 350px) {
     font-size: 1rem;
-  }
-
-  &.MoreInfo {
-    @keyframes changePosition {
-    from {
-      transform: translateY(-0.3em);
-    }
-
-    to {
-    }
-  }
-  animation-duration: 1s;
-  animation-name: changePosition;
-  animation-iteration-count: infinite;
   }
 `;
