@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import TextComponent from 'components/atoms/Text';
+import RecodeComponent from 'components/organisms/Recode';
 
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 1000px;
   margin: 1rem 8rem;
 `;
 
@@ -16,6 +16,7 @@ export const Title = styled.div`
   font-weight: 300;
   text-align: center;
   margin: 25px;
+  margin-top: 3rem;
 `;
 
 export const Line = styled.div`
@@ -34,5 +35,20 @@ export const Picture = styled.img`
 `;
 
 export const MainText = styled(TextComponent)`
-  width: 60%;
+  width: 90%;
+  font-size: 1rem;
+  margin-top: 2rem;
+  @media screen and (min-width: 1000px) {
+    width: 60%;
+    font-size: 1.2rem;
+  }
+`;
+
+export const Recode = styled(RecodeComponent)`
+  margin-bottom: 1em;
+`;
+
+export const RecodeWrap = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
