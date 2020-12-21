@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 
 import HeaderBar from 'components/organisms/HeaderBar';
 import Portfolio from 'pages/Portfolio';
@@ -13,14 +12,12 @@ import Post from 'pages/Post';
 import TIL from 'pages/TIL';
 import LM from 'pages/LM';
 
-import { theme } from 'styles/theme';
-import { GlobalStyle } from 'styles/global-styles';
+import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 
 function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
+      <GlobalThemeProvider>
         <Switch>
           <Route exact path="/">
             <HeaderBar />
@@ -43,8 +40,7 @@ function App() {
             <LM />
           </Route>
         </Switch>
-      </ThemeProvider>
-
+      </GlobalThemeProvider>
     </BrowserRouter>
   );
 }

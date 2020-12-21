@@ -1,5 +1,4 @@
-export const dummy = 1;
-export const theme = {
+export default {
   mainFontSize: 16,
 
   mainColor: '#2E4B73',
@@ -12,4 +11,5 @@ export const theme = {
 
   black: '#000000',
   white: '#ffffff',
+  subTextColor: '#b9b9b9',
 };

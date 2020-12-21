@@ -3,13 +3,10 @@ import React, {
 } from 'react';
 
 import AboutMe from 'components/organisms/AboutMe';
-import Skills from 'pages/Skills';
-import Goto from 'components/organisms/Goto';
-import TextSlide from 'components/organisms/TextSlide';
 import SlidingDoor from 'components/organisms/SlidingDoor';
 import { getScrollY } from 'hooks/getScroll';
 import { remToPixel } from 'utils/remToPixel';
-import { theme } from 'styles/theme';
+import theme from 'styles/theme';
 import PleaseScroll from 'components/organisms/PleaseScroll';
 import * as S from './style';
 
@@ -48,9 +45,6 @@ function App() {
       <PleaseScroll />
       <SlidingDoor setSize={setSlidingDoorSize} slidingDoorUpperSize={slidingDoorUpperSize}/>
       <AboutMe setSize={setAboutMeSize}/>
-      {/* <Skills setSize={setSkillsSize}/>
-      <Goto setSize={setGotoSize} isAnimated={isAnimatedGoto}/>
-      <TextSlide setSize={setTextSlideSize} textSlideUpperSize={textSlideUpperSize} /> */}
     </S.Main>
   );
 }
