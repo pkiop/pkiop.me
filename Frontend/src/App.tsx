@@ -25,7 +25,7 @@ function App() {
           </Route>
           <Route path="/portfolio">
             <HeaderBar />
-            <Portfolio />
+            <About />
           </Route>
           <Route path="/post">
             <HeaderBar />
