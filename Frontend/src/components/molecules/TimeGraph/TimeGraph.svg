@@ -1,0 +1,6 @@
+<svg width=500 height=100>
+  <line x1="49" y1="90" x2="451" y2="90" style="stroke:rgb(255,0,0);stroke-width:4" />   
+
+  <line x1="50" y1="90" x2="100" y2="40" style="stroke:rgb(255,0,0);stroke-width:4" />
+  <circle cx="100" cy="40" r="15" />
+</svg>
