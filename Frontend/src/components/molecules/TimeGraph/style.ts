@@ -9,4 +9,9 @@ export const Line = styled.line`
   stroke-width:4;
 `;
 
+export const EventLine = styled.line`
+  stroke:rgb(255,0,0);
+  stroke-width:4;
+`;
+
 export default {};
