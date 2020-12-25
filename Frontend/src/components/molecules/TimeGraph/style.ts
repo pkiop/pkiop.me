@@ -4,4 +4,9 @@ export const Main = styled.div`
   display: flex;
 `;
 
+export const Line = styled.line`
+  stroke:rgb(255,0,0);
+  stroke-width:4;
+`;
+
 export default {};
