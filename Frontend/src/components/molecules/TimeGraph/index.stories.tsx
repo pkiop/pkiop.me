@@ -28,7 +28,7 @@ const testData: IEvent[] = [
 export function Default() {
   return (
     <GlobalThemeProvider>
-      <TimeGraph events={testData}/>
+      <TimeGraph width={400} height={100} events={testData}/>
     </GlobalThemeProvider>
   );
 }
