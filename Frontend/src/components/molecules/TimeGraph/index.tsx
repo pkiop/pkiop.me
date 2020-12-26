@@ -22,13 +22,21 @@ function App({
   const eventLines = events.map((event: IEvent, idx: number) => {
     const xOffset = (idx === 0 ? 0 : (width - diagonalXDirectionLength) / idx);
     console.log(xOffset);
-    return (<S.Line x1={xOffset} x2={xOffset + diagonalXDirectionLength}
+    return (<S.EventLine x1={xOffset} x2={xOffset + diagonalXDirectionLength}
       y1={height } y2={height - diagonalXDirectionLength} />);
+  });
+
+  const eventCircle = events.map((event: IEvent, idx: number) => {
+    const xOffset = (idx === 0 ? 0 : (width - diagonalXDirectionLength) / idx);
+    const cx = diagonalXDirectionLength + xOffset;
+    const cy = diagonalXDirectionLength;
+    return (<S.EventCircle cx={cx} cy={cy} r={15} />);
   });
   console.log(eventLines);
   const svgImage = (
-    <svg width={width} height={height + 5}>
+    <svg width={width + 20} height={height + 5}>
       {eventLines}
+      {eventCircle}
       <S.Line x1={0} y1={height} x2={width - diagonalXDirectionLength} y2={height} />
     </svg>
   );
