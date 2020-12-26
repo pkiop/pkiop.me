@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 
 import HeaderBar from 'components/organisms/HeaderBar';
-import Portfolio from 'pages/Portfolio';
 import About from 'pages/About';
 import Post from 'pages/Post';
 import TIL from 'pages/TIL';
