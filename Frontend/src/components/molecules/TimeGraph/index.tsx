@@ -1,4 +1,5 @@
 import React from 'react';
+import profile from 'public/images/profile.png';
 import * as S from './style';
 
 export interface IEvent {
@@ -27,13 +28,14 @@ function App({
   });
 
   const eventCircle = events.map((event: IEvent, idx: number) => {
-    const xOffset = (idx === 0 ? 0 : (width - diagonalXDirectionLength) / idx);
+    const xOffset = (idx === 0 ? 0 : (width - diagonalXDirectionLength + 350) / idx);
     const cx = diagonalXDirectionLength + xOffset;
     const cy = diagonalXDirectionLength;
     return (
       <g>
         <a href="/">
-          <S.EventCircle cx={cx} cy={cy} r={circleRadius} />
+          <image href={profile} x={cx / 2} y={cy / 2} width={50} height={50}/>
+          {/* <S.EventCircle cx={cx} cy={cy} r={circleRadius} /> */}
         </a>
       </g>
     );
