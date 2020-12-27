@@ -14,10 +14,11 @@ interface IProps {
   width: number,
   height: number,
   diagonalXDirectionLength?: number,
+  circleRadius?: number,
 }
 
 function App({
-  events, width, height, diagonalXDirectionLength = 50,
+  events, width, height, diagonalXDirectionLength = 50, circleRadius = 20,
 }: IProps) {
   const eventLines = events.map((event: IEvent, idx: number) => {
     const xOffset = (idx === 0 ? 0 : (width - diagonalXDirectionLength) / idx);
@@ -29,10 +30,16 @@ function App({
     const xOffset = (idx === 0 ? 0 : (width - diagonalXDirectionLength) / idx);
     const cx = diagonalXDirectionLength + xOffset;
     const cy = diagonalXDirectionLength;
-    return (<S.EventCircle cx={cx} cy={cy} r={15} />);
+    return (
+      <g>
+        <a href="/">
+          <S.EventCircle cx={cx} cy={cy} r={circleRadius} />
+        </a>
+      </g>
+    );
   });
   const svgImage = (
-    <svg width={width + 20} height={height + 5}>
+    <svg width={width + circleRadius + 5} height={height + 5}>
       {eventLines}
       {eventCircle}
       <S.Line x1={0} y1={height} x2={width - diagonalXDirectionLength} y2={height} />
