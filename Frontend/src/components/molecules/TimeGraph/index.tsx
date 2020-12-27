@@ -21,7 +21,6 @@ function App({
 }: IProps) {
   const eventLines = events.map((event: IEvent, idx: number) => {
     const xOffset = (idx === 0 ? 0 : (width - diagonalXDirectionLength) / idx);
-    console.log(xOffset);
     return (<S.EventLine x1={xOffset} x2={xOffset + diagonalXDirectionLength}
       y1={height } y2={height - diagonalXDirectionLength} />);
   });
