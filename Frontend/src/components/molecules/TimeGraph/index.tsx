@@ -32,7 +32,6 @@ function App({
     const cy = diagonalXDirectionLength;
     return (<S.EventCircle cx={cx} cy={cy} r={15} />);
   });
-  console.log(eventLines);
   const svgImage = (
     <svg width={width + 20} height={height + 5}>
       {eventLines}
