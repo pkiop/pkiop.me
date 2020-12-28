@@ -34,8 +34,7 @@ function App({
     return (
       <g>
         <a href="/">
-          <image href={profile} x={cx / 2} y={cy / 2} width={50} height={50}/>
-          {/* <S.EventCircle cx={cx} cy={cy} r={circleRadius} /> */}
+          <image href={profile} x={cx / 2} y={cy / 2} width={50} height={50} rx={25} ry={25}/>
         </a>
       </g>
     );
