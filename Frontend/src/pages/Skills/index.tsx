@@ -20,7 +20,7 @@ interface Props {
   setSize: React.Dispatch<React.SetStateAction<number[]>>
 }
 
-const App: FC<Props> = (props) => {
+function Skills(props: Props) {
   const mainComponent = useRef<HTMLDivElement>(null);
   const mainComponentSize = useComponentSize(mainComponent);
 
@@ -36,6 +36,6 @@ const App: FC<Props> = (props) => {
       <Cover src={coverImg}></Cover>
     </Main>
   );
-};
+}
 
-export default App;
+export default Skills;
