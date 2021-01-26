@@ -27,7 +27,6 @@ function Post() {
   useEffect(() => {
     axios.get('https://raw.githubusercontent.com/pkiop/lifemanager/dev/README.md')
       .then((el: any) => {
-        console.log('el : ', el.data);
         setData(el.data);
       });
   }, []);

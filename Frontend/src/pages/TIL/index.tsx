@@ -1,11 +1,11 @@
-import React, {
-  FC,
-} from 'react';
+import React from 'react';
 
-const App: FC = () => (
-  <>
-    <h1>구현중</h1>
-  </>
-);
+function TIL() {
+  return (
+    <>
+      <h1>구현중</h1>
+    </>
+  );
+}
 
-export default App;
+export default TIL;

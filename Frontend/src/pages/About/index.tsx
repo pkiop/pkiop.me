@@ -10,7 +10,7 @@ import theme from 'styles/theme';
 // import PleaseScroll from 'components/organisms/PleaseScroll';
 import * as S from './style';
 
-function App() {
+function About() {
   const [aboutMeSize, setAboutMeSize] = useState<Array<number>>([0, 0]);
   const [skillsSize, setSkillsSize] = useState<Array<number>>([0, 0]);
   const [gotoSize, setGotoSize] = useState<Array<number>>([0, 0]);
@@ -47,4 +47,4 @@ function App() {
   );
 }
 
-export default App;
+export default About;
