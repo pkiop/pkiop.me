@@ -2,7 +2,7 @@ import React, {
   useEffect, useRef, useReducer, useState,
 } from 'react';
 
-import hideImage from 'public/images/cover.jpg';
+import hideImage from 'public/images/self.png';
 import { useComponentSize } from 'hooks/ElementSize';
 import { getScrollY } from 'hooks/getScroll';
 import ResumeOrMoreInfo from 'components/organisms/ResumeOrMoreInfo';
@@ -118,7 +118,7 @@ function App(props: Props) {
         <S.LeftDoor ref={LeftDoorComponent}/>
         <S.RightDoor ref={RightDoorComponent}/>
         <S.IntroText ref={IntroTextComponent}>
-          <S.Text></S.Text>
+          <S.Text>한장 요약</S.Text>
         </S.IntroText>
       </S.Fix>
     </S.Main>
